@@ -1,11 +1,13 @@
-import PropTypes from 'prop-types'
-import Link      from 'next/link'
-import Router    from 'next/router'
-import NProgress from 'nprogress'
-import Toolbar   from 'material-ui/Toolbar'
-import Grid      from 'material-ui/Grid'
-import Hidden    from 'material-ui/Hidden'
-import Avatar    from 'material-ui/Avatar'
+import PropTypes    from 'prop-types'
+import Link         from 'next/link'
+import Router       from 'next/router'
+import NProgress    from 'nprogress'
+import Toolbar      from 'material-ui/Toolbar'
+import Grid         from 'material-ui/Grid'
+import Hidden       from 'material-ui/Hidden'
+import Home         from 'material-ui-icons/Home'
+import { withStyles } from 'material-ui/styles';
+
 
 import MenuDrop from './MenuDrop'
 
@@ -17,10 +19,16 @@ Router.onRouteChangeStart = () => {
 Router.onRouteChangeComplete = () => NProgress.done()
 Router.onRouteChangeError = () => NProgress.done()
 
+const styles = theme => ({
+  icon: {
+    margin: theme.spacing.unit,
+  }
+})
+
 const optionsMenu = [
   {
-    text: 'Got question?',
-    href: 'https://github.com/builderbook/builderbook/issues'
+    text: 'Dashboard',
+    href: '/'
   },
   {
     text: 'Log out',
@@ -28,7 +36,7 @@ const optionsMenu = [
   }
 ]
 
-function Header({user}) {
+function Header({user, classes}) {
   return (
     <div>
       <Toolbar style={styleToolbar}>
@@ -36,25 +44,21 @@ function Header({user}) {
           <Grid item sm={10} xs={9} style={{textAlign: 'left'}}>
             {user ? (
               <div>
-                <Hidden smDown>
+                <Hidden>
                   <Link prefetch href="/">
-                    <a style={{marginRight: '20px'}}>Settings</a>
+                    <a><Home className={classes.icon} color={'secondary'}/></a>
                   </Link>
                 </Hidden>
               </div>
             ) : (
               <Link prefetch href="/">
                 <a>
-                  <Avatar
-                    src="https://storage.googleapis.com/builderbook/logo.svg"
-                    alt="Builder Book logo"
-                    style={{margin: '0px auto 0px 20px'}}
-                  />
+                  <Home className={classes.icon} color={'secondary'}/>
                 </a>
               </Link>
             )}
           </Grid>
-          <Grid item sm={1} xs={3} style={{textAlign: 'right'}}>
+          <Grid item sm={2} xs={3} style={{textAlign: 'right'}}>
             {user ? (
               <div style={{whiteSpace: ' nowrap'}}>
                 {user.avatarUrl ? (
@@ -63,7 +67,7 @@ function Header({user}) {
               </div>
             ) : (
               <Link prefetch href="/login">
-                <a style={{margin: '0px 20px 0px auto'}}>Log in</a>
+                <a style={{margin: '0px 20px 0px auto'}}>Log&nbsp;in</a>
               </Link>
             )}
           </Grid>
@@ -84,4 +88,4 @@ Header.defaultProps = {
   user: null
 }
 
-export default Header
+export default  withStyles(styles)(Header)
