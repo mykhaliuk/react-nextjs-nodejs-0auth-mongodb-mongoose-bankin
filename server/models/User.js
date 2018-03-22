@@ -3,54 +3,50 @@ import mongoose, {Schema} from 'mongoose'
 import generateSlug       from '../utils/slugify'
 
 const mongoSchema = new Schema({
-  googleId   : {
+  googleId         : {
     type    : String,
     required: true,
     unique  : true
   },
-  googleToken: {
+  googleToken      : {
     access_token : String,
     refresh_token: String
   },
-  slug       : {
+  slug             : {
     type    : String,
     required: true,
     unique  : true
   },
-  createdAt  : {
+  createdAt        : {
     type    : Date,
     required: true
   },
-  email      : {
+  email            : {
     type    : String,
     required: true,
     unique  : true
   },
-  isAdmin    : {
+  isAdmin          : {
     type   : Boolean,
     default: false
   },
-  displayName: String,
-  avatarUrl  : String,
-  isGithubConnected: {
-    type   : Boolean,
-    default: false
-  },
+  displayName      : String,
+  avatarUrl        : String,
   githubAccessToken: {
     type: String
   },
-  purchasedBookIds : [String],
-  freeBookIds      : [String]
+  bankAccounts     : Array,
+  emailVerified    : Boolean
 })
 
 class UserClass {
   // User's public fields
   static publicFields() {
-    return ['id', 'displayName', 'email', 'avatarUrl', 'slug', 'isAdmin', 'isGithubConnected']
+    return ['id', 'displayName', 'email', 'avatarUrl', 'slug', 'isAdmin', 'isGithubConnected', 'bankAccounts', 'emailVerified']
   }
 
   static async signInOrSignUp({
-    googleId, email, googleToken, displayName, avatarUrl
+    googleId, email, googleToken, displayName, avatarUrl, bankAccounts, emailVerified
   }) {
     const user = await this.findOne({googleId}).select(UserClass.publicFields().join(' '))
 
@@ -83,7 +79,9 @@ class UserClass {
       googleToken,
       displayName,
       slug,
-      avatarUrl
+      avatarUrl,
+      bankAccounts,
+      emailVerified
     })
 
     return _.pick(newUser, UserClass.publicFields())

@@ -1,10 +1,13 @@
 import express           from 'express'
 import session           from 'express-session'
+import compression       from 'compression'
+import bodyParser        from 'body-parser'
 import mongoSessionStore from 'connect-mongo'
 import next              from 'next'
 import mongoose          from 'mongoose'
 import getRootUrl        from '../lib/api/getRootUrl'
 import auth              from './google'
+import api               from './api'
 
 require('dotenv').config()
 
@@ -22,6 +25,18 @@ const handle = app.getRequestHandler()
 // Nextjs's server prepared
 app.prepare().then(() => {
   const server = express()
+
+  // give all Nextjs's request to Nextjs before anything else
+  server.get('/_next/*', (req, res) => {
+    handle(req, res)
+  })
+
+  server.get('/static/*', (req, res) => {
+    handle(req, res)
+  })
+
+  server.use(compression())
+  server.use(bodyParser.json())
 
   // confuring MongoDB session store
   const MongoStore = mongoSessionStore(session)
@@ -43,6 +58,7 @@ app.prepare().then(() => {
   server.use(session(sess))
 
   auth({server, ROOT_URL})
+  api(server)
 
   server.get('*', (req, res) => handle(req, res))
 

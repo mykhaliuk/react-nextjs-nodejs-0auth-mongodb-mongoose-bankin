@@ -5,14 +5,12 @@ import withAuth           from '../lib/withAuth'
 import withLayout         from '../lib/withLayout'
 import {styleLoginButton} from '../components/SharedStyles'
 
-import Styles from '../css/my-style.scss'
 
 const Login = () => (
   <div style={{textAlign: 'center', margin: '0 20px'}}>
     <Head>
       <title>Log in to Builder Book</title>
       <meta name="description" content="Login page for builderbook.org" />
-      <style dangerouslySetInnerHTML={{__html: Styles}} />
     </Head>
     <br />
     <p style={{margin: '45px auto', fontSize: '44px', fontWeight: '400'}}>Log in</p>

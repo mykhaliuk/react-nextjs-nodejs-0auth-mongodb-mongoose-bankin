@@ -7,6 +7,8 @@ import Document, {
 }                  from 'next/document'
 
 import getContext from '../lib/context'
+import Styles from '../css/index.scss'
+
 
 class MyDocument extends Document {
   render() {
@@ -62,6 +64,7 @@ class MyDocument extends Document {
               }
             `}
         </style>
+        <style dangerouslySetInnerHTML={{__html: Styles}} />
       </Head>
       <body
         style={{
