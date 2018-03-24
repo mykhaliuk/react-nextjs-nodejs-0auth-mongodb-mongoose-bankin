@@ -51,7 +51,7 @@ class BankAccountClass {
 
     const newAccount_id = newAccount._id
 
-    await User.findOneAndUpdate({_id: ObjectsId(user_id)}, {'$push':{bankAccounts: newAccount_id}})
+    await User.findOneAndUpdate({_id: ObjectsId(user_id)}, {'$push': {bankAccounts: newAccount_id}})
 
     return newAccount
   }

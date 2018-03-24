@@ -2,8 +2,8 @@ import _                  from 'lodash'
 import mongoose, {Schema} from 'mongoose'
 import generateSlug       from '../utils/slugify'
 
-const categories = {
-  Income: {
+const defaultCategories = {
+  Income  : {
     Salary: 'Salary',
     Prim  : 'Prim'
   },
@@ -52,11 +52,11 @@ const mongoSchema = new Schema({
 class UserClass {
   // User's public fields
   static publicFields() {
-    return ['id', 'displayName', 'email', 'avatarUrl', 'slug', 'isAdmin', 'isGithubConnected', 'bankAccounts', 'emailVerified']
+    return ['id', 'displayName', 'email', 'avatarUrl', 'slug', 'isAdmin', 'isGithubConnected', 'bankAccounts', 'emailVerified', 'categories']
   }
 
   static async signInOrSignUp({
-    googleId, email, googleToken, displayName, avatarUrl, bankAccounts, emailVerified
+    googleId, email, googleToken, displayName, avatarUrl, bankAccounts, emailVerified, categories = defaultCategories
   }) {
     const user = await this.findOne({googleId}).select(UserClass.publicFields().join(' '))
 

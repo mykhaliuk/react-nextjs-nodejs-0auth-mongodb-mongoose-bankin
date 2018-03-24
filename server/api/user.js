@@ -24,7 +24,7 @@ router.get('/bank-account/:id', async (req, res) => {
 
 router.post('/bank-account/create', async (req, res) => {
   const {name, currency, description, CreationDate, type} = req.body,
-        user_id = req.user.id
+        user_id                                           = req.user.id
 
   try {
     await BankAccount.add({user_id, name, currency, description, CreationDate, type})

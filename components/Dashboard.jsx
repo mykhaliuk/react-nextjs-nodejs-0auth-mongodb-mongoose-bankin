@@ -49,10 +49,8 @@ class Dashboard extends React.Component {
 
   /*async componentDidMount() {
     const newAccountData = {name:"main",description:"Credit Agricole PACA"}
-    const newAccountData2 = {name:"Livret-A",description:"Credit Agricole", type:"Savings"}
     try {
       await createBankAccount(newAccountData)
-      await createBankAccount(newAccountData2)
     } catch (err) {
       this.setState({
         loading: false,
