@@ -5,7 +5,6 @@ import generateSlug       from '../utils/slugify'
 const mongoSchema = new Schema({
   googleId         : {
     type    : String,
-    required: true,
     unique  : true
   },
   googleToken      : {

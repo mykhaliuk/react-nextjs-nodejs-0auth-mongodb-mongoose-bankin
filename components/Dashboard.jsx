@@ -6,7 +6,11 @@ import AppBar         from 'material-ui/AppBar'
 import Tabs, {Tab}    from 'material-ui/Tabs'
 import Typography     from 'material-ui/Typography'
 
-import {getAllCategories} from '../lib/api/user'
+import {
+  getAllCategories,
+  getBankAccountData,
+  createBankAccount
+} from '../lib/api/user'
 
 const styles = theme => ({
   root: {
@@ -46,12 +50,14 @@ class Dashboard extends React.Component {
   async componentDidMount() {
     try {
       const categories = await getAllCategories()
+
       this.setState({
         categories
       })
     } catch (err) {
       this.setState({
-        loading: false, error: err.message || err.toString()
+        loading: false,
+        error  : err.message || err.toString()
       })
     }
   }
@@ -61,7 +67,7 @@ class Dashboard extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" color="default">
+        <AppBar className={''} position="static" color="default">
           <Tabs
             value={this.state.activeTab}
             onChange={this.handleChange()}

@@ -11,7 +11,7 @@ import withLayout from '../lib/withLayout'
 import Dashboard  from '../components/Dashboard'
 
 const styles = theme => ({
-  root : {
+  root: {
     flexGrow: 1
   }
 })
@@ -30,15 +30,15 @@ class Index extends React.Component {
 
   render() {
     const {user, classes} = this.props
-    console.log('\n %c index.props: ', 'color: green', this.props)
+    // console.log('\n %c index.props: ', 'color: green', this.props)
     return (
       <div className={this.props.classes.root}>
         <Head>
           <title>Dashboard</title>
           <meta name="description" content="money tracking web application" />
         </Head>
-        <Grid container spacing={16} className={classes.root} justify="center" >
-          <Grid item xs={12} md={9} >
+        <Grid container spacing={16} className={classes.root} justify="center">
+          <Grid item xs={12} md={9}>
             <Dashboard {...this.props} />
           </Grid>
         </Grid>

@@ -21,6 +21,6 @@ class CategoryClass {
   }
 }
 
-CategorySchema.loadClass(CategoryClass);
+CategorySchema.loadClass(CategoryClass)
 
 export default mongoose.model('Category', CategorySchema)
