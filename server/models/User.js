@@ -2,10 +2,20 @@ import _                  from 'lodash'
 import mongoose, {Schema} from 'mongoose'
 import generateSlug       from '../utils/slugify'
 
+const categories = {
+  Income: {
+    Salary: 'Salary',
+    Prim  : 'Prim'
+  },
+  Expenses: {
+    Supermarket: 'Supermarket'
+  }
+}
+
 const mongoSchema = new Schema({
   googleId         : {
-    type    : String,
-    unique  : true
+    type  : String,
+    unique: true
   },
   googleToken      : {
     access_token : String,
@@ -35,6 +45,7 @@ const mongoSchema = new Schema({
     type: String
   },
   bankAccounts     : Array,
+  categories       : Object,
   emailVerified    : Boolean
 })
 
@@ -80,7 +91,8 @@ class UserClass {
       slug,
       avatarUrl,
       bankAccounts,
-      emailVerified
+      emailVerified,
+      categories
     })
 
     return _.pick(newUser, UserClass.publicFields())

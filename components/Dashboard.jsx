@@ -47,13 +47,12 @@ class Dashboard extends React.Component {
     this.setState({activeTab})
   }
 
-  async componentDidMount() {
+  /*async componentDidMount() {
+    const newAccountData = {name:"main",description:"Credit Agricole PACA"}
+    const newAccountData2 = {name:"Livret-A",description:"Credit Agricole", type:"Savings"}
     try {
-      const categories = await getAllCategories()
-
-      this.setState({
-        categories
-      })
+      await createBankAccount(newAccountData)
+      await createBankAccount(newAccountData2)
     } catch (err) {
       this.setState({
         loading: false,
@@ -61,7 +60,7 @@ class Dashboard extends React.Component {
       })
     }
   }
-
+*/
   render() {
     const {classes, theme} = this.props
 

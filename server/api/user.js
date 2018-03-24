@@ -1,6 +1,5 @@
 import express from 'express'
 
-import Category    from '../models/Category'
 import BankAccount from '../models/BankAccount'
 
 const router = express.Router()
@@ -12,16 +11,6 @@ router.use((req, res, next) => {
   }
 
   next()
-})
-
-router.get('/all-categories', async (req, res) => {
-  try {
-    const categories = await Category.list()
-
-    res.json(categories)
-  } catch (err) {
-    res.json({error: err.message || err.toString()})
-  }
 })
 
 router.get('/bank-account/:id', async (req, res) => {
