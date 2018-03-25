@@ -6,11 +6,7 @@ import AppBar         from 'material-ui/AppBar'
 import Tabs, {Tab}    from 'material-ui/Tabs'
 import Typography     from 'material-ui/Typography'
 
-import {
-  getAllCategories,
-  getBankAccountData,
-  createBankAccount
-} from '../lib/api/user'
+import GetTabContent from './GetTabContent'
 
 const styles = theme => ({
   root: {
@@ -60,7 +56,8 @@ class Dashboard extends React.Component {
   }
 */
   render() {
-    const {classes, theme} = this.props
+    const {classes, theme, user} = this.props
+    console.log(`%c \n rendering <Dashboard/>\n`, 'color: red')
 
     return (
       <div className={classes.root}>
@@ -71,13 +68,11 @@ class Dashboard extends React.Component {
             indicatorColor="primary"
             textColor="primary"
             fullWidth
-            centered
             scrollable
             scrollButtons="auto"
           >
             <Tab label="All" />
-            <Tab label="Item Two" />
-            <Tab label="Item Three" />
+            {user.bankAccounts.map(accountID => <GetTabContent id={accountID} key={accountID} />)}
           </Tabs>
         </AppBar>
         <SwipeableViews
@@ -86,8 +81,8 @@ class Dashboard extends React.Component {
           onChangeIndex={this.handleChangeIndex()}
         >
           <TabContainer dir={theme.direction}>Item One</TabContainer>
-          <TabContainer dir={theme.direction}>Item Two</TabContainer>
-          <TabContainer dir={theme.direction}>Item Three</TabContainer>
+          <TabContainer value={'5ab63ac6d135e800f9c33d8e'} dir={theme.direction}>Tab Two</TabContainer>
+          <TabContainer value={'5ab63a76d135e800f9c33d8d'} dir={theme.direction}>Tab Three</TabContainer>
         </SwipeableViews>
       </div>
     )

@@ -53,6 +53,10 @@ class TransactionClass {
   static async allTransactionsByAccountId(accountId) {
     return await this.find({account: ObjectsId(accountId)}).exec()
   }
+
+  static async allTransactionsByUserId(userId) {
+    return await this.find({owner: ObjectsId(userId)}).exec()
+  }
 }
 
 TransactionSchema.loadClass(TransactionClass)
