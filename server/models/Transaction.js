@@ -1,12 +1,16 @@
 import mongoose, {Schema} from 'mongoose'
 
-const ObjectsId = mongoose.Types.ObjectId
+const ObjectId = mongoose.Schema.Types.ObjectId
+const ObjectID = mongoose.Types.ObjectId
 const TransactionSchema = new mongoose.Schema({
   name        : {
     type    : String,
     required: true
   },
-  note        : String,
+  note        : {
+    type   : String,
+    default: ''
+  },
   owner       : {
     type    : ObjectId,
     required: true
@@ -24,11 +28,7 @@ const TransactionSchema = new mongoose.Schema({
     default: 'EUR'
   },
   category    : {
-    type    : ObjectId,
-    required: true
-  },
-  subCategory : {
-    type    : Number,
+    type    : String,
     required: true
   },
   creationDate: {
@@ -51,11 +51,27 @@ class TransactionClass {
   }
 
   static async allTransactionsByAccountId(accountId) {
-    return await this.find({account: ObjectsId(accountId)}).exec()
+    return await this.find({account: ObjectID(accountId)}).exec()
   }
 
   static async allTransactionsByUserId(userId) {
-    return await this.find({owner: ObjectsId(userId)}).exec()
+    return await this.find({owner: ObjectID(userId)}).exec()
+  }
+
+  static async add({name, note, owner, account, amount, currency, category, creationDate, isHidden}) {
+
+    const newTransaction = await this.create({
+      name,
+      note,
+      owner,
+      account, amount,
+      currency,
+      category,
+      creationDate,
+      isHidden
+    })
+
+    return newTransaction
   }
 }
 

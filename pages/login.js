@@ -5,7 +5,6 @@ import withAuth           from '../lib/withAuth'
 import withLayout         from '../lib/withLayout'
 import {styleLoginButton} from '../components/SharedStyles'
 
-
 const Login = () => (
   <div style={{textAlign: 'center', margin: '0 20px'}}>
     <Head>

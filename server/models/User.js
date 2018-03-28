@@ -3,12 +3,15 @@ import mongoose, {Schema} from 'mongoose'
 import generateSlug       from '../utils/slugify'
 
 const defaultCategories = {
-  Income  : {
-    Salary: 'Salary',
-    Prim  : 'Prim'
+  Incomes : {
+    Salaries  : 'Salaries',
+    Savings   : 'Savings',
+    Retirement: 'Retirement'
   },
   Expenses: {
-    Supermarket: 'Supermarket'
+    'Food & Dining': {
+      'Supermarket / Groceries': 'Supermarket / Groceries'
+    }
   }
 }
 

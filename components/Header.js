@@ -6,8 +6,7 @@ import Toolbar      from 'material-ui/Toolbar'
 import Grid         from 'material-ui/Grid'
 import Hidden       from 'material-ui/Hidden'
 import Home         from 'material-ui-icons/Home'
-import { withStyles } from 'material-ui/styles';
-
+import {withStyles} from 'material-ui/styles'
 
 import MenuDrop from './MenuDrop'
 
@@ -21,7 +20,7 @@ Router.onRouteChangeError = () => NProgress.done()
 
 const styles = theme => ({
   icon: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing.unit
   }
 })
 
@@ -46,14 +45,14 @@ function Header({user, classes}) {
               <div>
                 <Hidden>
                   <Link prefetch href="/">
-                    <a><Home className={classes.icon} color={'secondary'}/></a>
+                    <a><Home className={classes.icon} color={'secondary'} /></a>
                   </Link>
                 </Hidden>
               </div>
             ) : (
               <Link prefetch href="/">
                 <a>
-                  <Home className={classes.icon} color={'secondary'}/>
+                  <Home className={classes.icon} color={'secondary'} />
                 </a>
               </Link>
             )}
@@ -88,4 +87,4 @@ Header.defaultProps = {
   user: null
 }
 
-export default  withStyles(styles)(Header)
+export default withStyles(styles)(Header)

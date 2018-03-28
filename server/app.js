@@ -19,7 +19,7 @@ mongoose.connect(MONGO_URL)
 const port = process.env.PORT || 8000
 const ROOT_URL = getRootUrl()
 
-const app = next({dev})
+const app = next({dev, dir: '.'})
 const handle = app.getRequestHandler()
 
 // Nextjs's server prepared

@@ -3,14 +3,28 @@ import PropTypes      from 'prop-types'
 import {withStyles}   from 'material-ui/styles'
 import SwipeableViews from 'react-swipeable-views'
 import AppBar         from 'material-ui/AppBar'
+import Grid           from 'material-ui/Grid'
 import Tabs, {Tab}    from 'material-ui/Tabs'
 import Typography     from 'material-ui/Typography'
 
-import GetTabContent from './GetTabContent'
+import Snackbar   from 'material-ui/Snackbar'
+import IconButton from 'material-ui/IconButton'
+import CloseIcon  from 'material-ui-icons/Close'
+
+import userAPI                 from '../lib/api/user'
+import GetTabContent           from './GetTabContent'
+import TotalAmount             from './TotalAmount'
+import CreateTransactionButton from './CreateTransactionButton'
+
+import TransactionsList from './TransactionsList'
 
 const styles = theme => ({
-  root: {
+  root   : {
     backgroundColor: theme.palette.background.paper
+  },
+  caption: {
+    textTransform: 'uppercase',
+    paddingBottom: theme.typography.pxToRem(20) + `!important`
   }
 })
 
@@ -29,13 +43,15 @@ TabContainer.propTypes = {
 
 class Dashboard extends React.Component {
   state = {
-    activeTab : 0,
-    categories: null,
-    loading   : false,
-    error     : null
+    userTransactions: null,
+    activeTab       : 0,
+    categories      : null,
+    loading         : false,
+    error           : null,
+    isSnackbarOpen  : false
   }
 
-  handleChange = () => (event, activeTab) => {
+  handleChangeTab = () => (event, activeTab) => {
     this.setState({activeTab})
   }
 
@@ -43,10 +59,28 @@ class Dashboard extends React.Component {
     this.setState({activeTab})
   }
 
-  /*async componentDidMount() {
-    const newAccountData = {name:"main",description:"Credit Agricole PACA"}
+  handleCloseSnackbar = () => (event, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    this.setState({open: false})
+  }
+
+  createTransaction = () => (transaction) => this.setState({
+    userTransaction: {...this.state.userTransactions, transaction}
+  })
+
+  async componentWillMount() {
+    const {user} = this.props
+
     try {
-      await createBankAccount(newAccountData)
+      const userTransactions = await userAPI.getAllUserTransactions(user.id)
+
+      this.setState({
+        loading: false,
+        error  : null,
+        userTransactions
+      })
     } catch (err) {
       this.setState({
         loading: false,
@@ -54,17 +88,54 @@ class Dashboard extends React.Component {
       })
     }
   }
-*/
+
+  async componentDidMount() {
+    const {user} = this.props
+
+    // const newAccountData = {name:"main",description:"Credit Agricole PACA"}
+    // const newTransactionData = {
+    //   name: 'Salary', account: '5ab63ac6d135e800f9c33d8e', amount: 140000, category: `${user.categories.Incomes.Salaries}`
+    // }
+
+    // await userAPI.createBankAccount(newAccountData)
+    // await userAPI.createTransaction(newTransactionData)
+  }
+
   render() {
-    const {classes, theme, user} = this.props
     console.log(`%c \n rendering <Dashboard/>\n`, 'color: red')
 
-    return (
+    const {classes, theme, user} = this.props
+
+    return <React.Fragment>
+      <Snackbar
+        anchorOrigin={{
+          vertical  : 'bottom',
+          horizontal: 'center'
+        }}
+        open={this.state.error}
+        autoHideDuration={6000}
+        onClose={this.handleCloseSnackbar()}
+        SnackbarContentProps={{
+          'aria-describedby': 'message-id'
+        }}
+        message={<span id="message-id">{this.state.error}</span>}
+        action={[
+          <IconButton
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            className={classes.close}
+            onClick={this.handleCloseSnackbar()}
+          >
+            <CloseIcon />
+          </IconButton>
+        ]}
+      />
       <div className={classes.root}>
         <AppBar className={''} position="static" color="default">
           <Tabs
             value={this.state.activeTab}
-            onChange={this.handleChange()}
+            onChange={this.handleChangeTab()}
             indicatorColor="primary"
             textColor="primary"
             fullWidth
@@ -80,12 +151,18 @@ class Dashboard extends React.Component {
           index={this.state.activeTab}
           onChangeIndex={this.handleChangeIndex()}
         >
-          <TabContainer dir={theme.direction}>Item One</TabContainer>
+          <TabContainer dir={theme.direction}>
+            <Grid container align-items='flex-end'>
+              <TotalAmount transactions={this.state.userTransactions} />
+              <CreateTransactionButton createTransaction={this.createTransaction} user={user} />
+              <TransactionsList transactions={this.state.userTransactions} />
+            </Grid>
+          </TabContainer>
           <TabContainer value={'5ab63ac6d135e800f9c33d8e'} dir={theme.direction}>Tab Two</TabContainer>
           <TabContainer value={'5ab63a76d135e800f9c33d8d'} dir={theme.direction}>Tab Three</TabContainer>
         </SwipeableViews>
       </div>
-    )
+    </React.Fragment>
   }
 }
 

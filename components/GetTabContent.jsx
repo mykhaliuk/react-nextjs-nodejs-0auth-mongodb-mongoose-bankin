@@ -1,8 +1,8 @@
-import React                from 'react'
-import PropTypes            from 'prop-types'
-import {getBankAccountData} from '../lib/api/user'
-import {CircularProgress}   from 'material-ui/Progress'
-import {Tab}                from 'material-ui/Tabs'
+import React              from 'react'
+import PropTypes          from 'prop-types'
+import userAPI            from '../lib/api/user'
+import {CircularProgress} from 'material-ui/Progress'
+import {Tab}              from 'material-ui/Tabs'
 
 function GetTabContent(WrappedComponent) {
 
@@ -20,7 +20,7 @@ function GetTabContent(WrappedComponent) {
     async componentDidMount() {
 
       const {id} = this.props
-      const accountData = await getBankAccountData(id)
+      const accountData = await userAPI.getBankAccountData(id)
 
       this.setState({
         accountData,

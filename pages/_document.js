@@ -7,8 +7,7 @@ import Document, {
 }                  from 'next/document'
 
 import getContext from '../lib/context'
-import Styles from '../css/index.scss'
-
+import Styles     from '../css/index.scss'
 
 class MyDocument extends Document {
   render() {

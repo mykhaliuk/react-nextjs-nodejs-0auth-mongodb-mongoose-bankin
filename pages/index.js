@@ -35,7 +35,12 @@ class Index extends React.Component {
       <div className={this.props.classes.root}>
         <Head>
           <title>Dashboard</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+          <meta name="apple-touch-fullscreen" content="yes" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="black" />
           <meta name="description" content="money tracking web application" />
+
         </Head>
         <Grid container spacing={16} className={classes.root} justify="center">
           <Grid item xs={12} md={9}>
