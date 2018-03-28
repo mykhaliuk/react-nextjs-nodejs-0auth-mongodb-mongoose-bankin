@@ -10,6 +10,7 @@ npm-debug.log
 .vscode/
 node_modules/
 .coverage
-.env
 /.env
 /.idea/
+/yarn-error.log
+/package-lock.json
