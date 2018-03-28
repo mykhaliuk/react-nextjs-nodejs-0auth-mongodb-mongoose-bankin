@@ -1,0 +1,2 @@
+{"_id":{"$oid":"5ab63a76d135e800f9c33d8d"},"name":"Livret-A","currency":"EUR","description":"Credit Agricole","CreationDate":{"$date":"2018-03-24T11:45:58.863Z"},"type":"Savings","__v":0}
+{"_id":{"$oid":"5ab63ac6d135e800f9c33d8e"},"name":"Main","currency":"EUR","description":"Credit Agricole PACA","CreationDate":{"$date":"2018-03-23T11:47:18.698Z"},"type":"Checking","__v":0}

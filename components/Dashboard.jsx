@@ -102,7 +102,7 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    console.log(`%c \n rendering <Dashboard/>\n`, 'color: red')
+    // console.log(`%c \n rendering <Dashboard/>\n`, 'color: red') TODO: dev logging
 
     const {classes, theme, user} = this.props
 
