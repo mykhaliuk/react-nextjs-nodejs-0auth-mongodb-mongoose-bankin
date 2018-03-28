@@ -12,9 +12,15 @@ import api               from './api'
 require('dotenv').config()
 
 const dev = process.env.NODE_ENV !== 'production'
-const MONGO_URL = process.env.MONGO_URL_TEST
+const MONGO_URL = process.env.MONGO_URL /*dev ? process.env.MONGO_URL_TEST:*/
 
-mongoose.connect(MONGO_URL)
+mongoose.connect(MONGO_URL,  {dbName: 'react-bankin-bb'})
+mongoose.connection.on('connected', () => {
+  console.log('🔗 Mongoose successfully connected to MongoDB');
+});
+
+
+
 
 const port = process.env.PORT || 8000
 const ROOT_URL = getRootUrl()
