@@ -10,17 +10,12 @@ import Input, {
 import {FormControl} from 'material-ui/Form'
 
 class InputNameTransaction extends React.Component {
-  state = {
-    key: ''
-  }
 
   render() {
-    const {onChange, classes, isError} = this.props
+    const {onChange, isError} = this.props
 
     return (
       <Fragment>
-        <div>key: {this.state.key}</div>
-
         <FormControl fullWidth>
           <InputLabel htmlFor="name">Name</InputLabel>
           <Input

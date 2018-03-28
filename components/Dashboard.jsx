@@ -70,35 +70,36 @@ class Dashboard extends React.Component {
     userTransaction: {...this.state.userTransactions, transaction}
   })
 
-  async componentWillMount() {
+  async componentDidMount() {
     const {user} = this.props
+    // const newTransactionData = {
+    //   name: 'Salary', account: '5ab63ac6d135e800f9c33d8e', amount: 140000, category: `${user.categories.Incomes.Salaries}`
+    // }
+    // const newAccountData = {name:"main",description:"Credit Agricole PACA"}
 
     try {
       const userTransactions = await userAPI.getAllUserTransactions(user.id)
+
+      // await userAPI.createBankAccount(newAccountData)
+      // await userAPI.createTransaction(newTransactionData)
 
       this.setState({
         loading: false,
         error  : null,
         userTransactions
       })
+
+
     } catch (err) {
       this.setState({
         loading: false,
         error  : err.message || err.toString()
       })
     }
-  }
 
-  async componentDidMount() {
-    const {user} = this.props
 
-    // const newAccountData = {name:"main",description:"Credit Agricole PACA"}
-    // const newTransactionData = {
-    //   name: 'Salary', account: '5ab63ac6d135e800f9c33d8e', amount: 140000, category: `${user.categories.Incomes.Salaries}`
-    // }
 
-    // await userAPI.createBankAccount(newAccountData)
-    // await userAPI.createTransaction(newTransactionData)
+
   }
 
   render() {
@@ -143,7 +144,7 @@ class Dashboard extends React.Component {
             scrollButtons="auto"
           >
             <Tab label="All" />
-            {user.bankAccounts.map(accountID => <GetTabContent id={accountID} key={accountID} />)}
+            {user.bankAccounts.map(accountID => <GetTabContent id={accountID.toString()} key={accountID.toString()} />)}
           </Tabs>
         </AppBar>
         <SwipeableViews
