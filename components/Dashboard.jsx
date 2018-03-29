@@ -89,7 +89,6 @@ class Dashboard extends React.Component {
         userTransactions
       })
 
-
     } catch (err) {
       this.setState({
         loading: false,
@@ -97,13 +96,10 @@ class Dashboard extends React.Component {
       })
     }
 
-
-
-
   }
 
   render() {
-    // console.log(`%c \n rendering <Dashboard/>\n`, 'color: red') TODO: dev logging
+    // console.log(`%c \n rendering <Dashboard/>\n`, 'color: red') TODO: Notifer
 
     const {classes, theme, user} = this.props
 
