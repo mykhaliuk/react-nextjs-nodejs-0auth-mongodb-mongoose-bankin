@@ -1,8 +1,8 @@
-import React              from 'react'
-import PropTypes          from 'prop-types'
-import userAPI            from '../lib/api/user'
-import {CircularProgress} from 'material-ui/Progress'
-import {Tab}              from 'material-ui/Tabs'
+import React     from 'react'
+import PropTypes from 'prop-types'
+import userAPI   from '../lib/api/user'
+import Spinner   from './Spinner'
+import {Tab}     from 'material-ui/Tabs'
 
 function GetTabContent(WrappedComponent) {
 
@@ -33,7 +33,7 @@ function GetTabContent(WrappedComponent) {
       const {accountData, isLoading} = this.state
       const {classes} = this.props
 
-      return <WrappedComponent label={isLoading ? <CircularProgress style={{color: 'grey[500]'}} /> : accountData.name} {...this.props} />
+      return <WrappedComponent label={isLoading ? <Spinner active /> : accountData.name} {...this.props} />
     }
   }
 

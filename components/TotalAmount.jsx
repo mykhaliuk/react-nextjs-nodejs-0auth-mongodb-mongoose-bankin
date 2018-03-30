@@ -2,9 +2,9 @@ import React              from 'react'
 import Grid               from 'material-ui/Grid'
 import Typography         from 'material-ui/Typography'
 import {withStyles}       from 'material-ui/styles'
-import {CircularProgress} from 'material-ui/Progress'
 
 import formatMoney from '../lib/formatMoney'
+import Spinner     from './Spinner'
 
 const styles = theme => ({
   root   : {
@@ -27,7 +27,7 @@ const TotalAmount = ({transactions, classes}) => {
   return (
     <Grid item className={classes.root} xs={12}>
       <Typography variant="display2" align='right'>
-        {transactions === null ? <CircularProgress /> : sum.formatMoney()}
+        {transactions === null ? <Spinner scale={.8} active /> : sum.formatMoney()}
       </Typography>
       <Typography className={classes.caption} variant="caption" align="right">
         total balance

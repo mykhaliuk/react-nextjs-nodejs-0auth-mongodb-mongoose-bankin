@@ -61,16 +61,9 @@ class Dashboard extends React.Component {
 
   async componentDidMount() {
     const {user} = this.props
-    // const newTransactionData = {
-    //   name: 'Salary', account: '5ab63ac6d135e800f9c33d8e', amount: 140000, category: `${user.categories.Incomes.Salaries}`
-    // }
-    // const newAccountData = {name:"main",description:"Credit Agricole PACA"}
 
     try {
       const userTransactions = await userAPI.getAllUserTransactions(user.id)
-
-      // await userAPI.createBankAccount(newAccountData)
-      await userAPI.createTransaction(newTransactionData)
 
       this.setState({
         loading: false,
@@ -81,9 +74,7 @@ class Dashboard extends React.Component {
         loading: false
       })
       notify('Oops! Unable to load your transactions. Try to reload page')
-
     }
-
   }
 
   render() {

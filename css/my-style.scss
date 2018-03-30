@@ -6,3 +6,15 @@
 .btn-block-round-bottom {
   border-radius: 0 0 .62rem .62rem !important;
 }
+
+$primary-color: #2196f3;
+$margin: 3px;
+
+@import '~loaders.css/src/animations/line-scale-pulse-out-rapid.scss';
+
+.loader-hidden {
+  display: none;
+}
+.loader-active {
+  display: block;
+}
