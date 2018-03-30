@@ -16,8 +16,6 @@ export default function auth({ROOT_URL, server}) {
       avatarUrl = profile.photos[0].value.replace('sz=50', 'sz=128')
     }
 
-    // console.log('\n avatarUrl', profile.photos) TODO: dev logger wanted
-
     try {
       const user = await User.signInOrSignUp({
         googleId   : profile.id,

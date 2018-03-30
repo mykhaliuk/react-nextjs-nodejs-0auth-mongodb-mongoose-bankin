@@ -7,16 +7,13 @@ import Grid           from 'material-ui/Grid'
 import Tabs, {Tab}    from 'material-ui/Tabs'
 import Typography     from 'material-ui/Typography'
 
-import Snackbar   from 'material-ui/Snackbar'
-import IconButton from 'material-ui/IconButton'
-import CloseIcon  from 'material-ui-icons/Close'
-
 import userAPI                 from '../lib/api/user'
 import GetTabContent           from './GetTabContent'
 import TotalAmount             from './TotalAmount'
 import CreateTransactionButton from './CreateTransactionButton'
 
 import TransactionsList from './TransactionsList'
+import notify           from '../lib/notifier'
 
 const styles = theme => ({
   root   : {
@@ -47,7 +44,6 @@ class Dashboard extends React.Component {
     activeTab       : 0,
     categories      : null,
     loading         : false,
-    error           : null,
     isSnackbarOpen  : false
   }
 
@@ -57,13 +53,6 @@ class Dashboard extends React.Component {
 
   handleChangeIndex = () => activeTab => {
     this.setState({activeTab})
-  }
-
-  handleCloseSnackbar = () => (event, reason) => {
-    if (reason === 'clickaway') {
-      return
-    }
-    this.setState({open: false})
   }
 
   createTransaction = () => (transaction) => this.setState({
@@ -81,53 +70,26 @@ class Dashboard extends React.Component {
       const userTransactions = await userAPI.getAllUserTransactions(user.id)
 
       // await userAPI.createBankAccount(newAccountData)
-      // await userAPI.createTransaction(newTransactionData)
+      await userAPI.createTransaction(newTransactionData)
 
       this.setState({
         loading: false,
-        error  : null,
         userTransactions
       })
-
     } catch (err) {
       this.setState({
-        loading: false,
-        error  : err.message || err.toString()
+        loading: false
       })
+      notify('Oops! Unable to load your transactions. Try to reload page')
+
     }
 
   }
 
   render() {
-    // console.log(`%c \n rendering <Dashboard/>\n`, 'color: red') TODO: Notifer
-
     const {classes, theme, user} = this.props
 
-    return <React.Fragment>
-      <Snackbar
-        anchorOrigin={{
-          vertical  : 'bottom',
-          horizontal: 'center'
-        }}
-        open={this.state.error}
-        autoHideDuration={6000}
-        onClose={this.handleCloseSnackbar()}
-        SnackbarContentProps={{
-          'aria-describedby': 'message-id'
-        }}
-        message={<span id="message-id">{this.state.error}</span>}
-        action={[
-          <IconButton
-            key="close"
-            aria-label="Close"
-            color="inherit"
-            className={classes.close}
-            onClick={this.handleCloseSnackbar()}
-          >
-            <CloseIcon />
-          </IconButton>
-        ]}
-      />
+    return (
       <div className={classes.root}>
         <AppBar className={''} position="static" color="default">
           <Tabs
@@ -159,7 +121,7 @@ class Dashboard extends React.Component {
           <TabContainer value={'5ab63a76d135e800f9c33d8d'} dir={theme.direction}>Tab Three</TabContainer>
         </SwipeableViews>
       </div>
-    </React.Fragment>
+    )
   }
 }
 

@@ -43,7 +43,7 @@ class Index extends React.Component {
 
         </Head>
         <Grid container spacing={16} className={classes.root} justify="center">
-          <Grid item xs={12} md={9}>
+          <Grid item xs={12} md={9} lg={6}>
             <Dashboard {...this.props} />
           </Grid>
         </Grid>
