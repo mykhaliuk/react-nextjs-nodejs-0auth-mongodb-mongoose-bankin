@@ -17,6 +17,7 @@ const TransactionSchema = new mongoose.Schema({
   },
   account     : {
     type    : ObjectId,
+    ref     : 'BankAccount',
     required: true
   },
   amount      : {
@@ -55,7 +56,7 @@ class TransactionClass {
   }
 
   static async allTransactionsByUserId(userId) {
-    return await this.find({owner: ObjectID(userId)}).exec()
+    return await this.find({owner: ObjectID(userId)}).sort('-creationDate').exec()
   }
 
   static async add({name, note, owner, account, amount, currency, category, creationDate, isHidden}) {
@@ -74,6 +75,14 @@ class TransactionClass {
     return newTransaction
   }
 }
+
+const autoPopulateCategory = function (next) {
+  this.populate('account')
+  next()
+}
+
+TransactionSchema.pre('findOne', autoPopulateCategory)
+TransactionSchema.pre('find', autoPopulateCategory)
 
 TransactionSchema.loadClass(TransactionClass)
 

@@ -30,7 +30,7 @@ const styles = theme => ({
   }
 })
 
-class TransactionsList extends React.Component {
+class CreateTransactionButton extends React.Component {
 
   state = {
     isModalOpen: false
@@ -56,8 +56,8 @@ class TransactionsList extends React.Component {
   }
 }
 
-TransactionsList.propTypes = {
+CreateTransactionButton.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(TransactionsList)
+export default withStyles(styles)(CreateTransactionButton)

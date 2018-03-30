@@ -173,9 +173,9 @@ class DotsMobileStepper extends React.Component {
             </Button>
           }
           backButton={
-            <Button size="small" onClick={this.handleBack} disabled={this.state.activeStep === 0 || !this.state.okGo}>
-              {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-              Back
+            <Button size="small" onClick={this.state.activeStep === 0 ? closeModal() : this.handleBack} >
+              {!(this.state.activeStep === 0) && (theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />)}
+              {this.state.activeStep === 0 ? 'Cancel' : 'Back'}
             </Button>
           }
         />
