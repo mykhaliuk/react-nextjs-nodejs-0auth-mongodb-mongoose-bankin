@@ -17,14 +17,16 @@ import formatMoney from '../lib/formatMoney'
 
 const styles = theme => ({
   heading       : {
-    fontSize: theme.typography.pxToRem(15),
+    fontSize  : theme.typography.pxToRem(16),
     fontWeight: 300
   },
-  // category:{
-  //   paddingLeft: theme.typography.pxToRem(15)
-  // },
+  category      : {
+    fontSize: theme.typography.pxToRem(13)
+    // paddingLeft: theme.typography.pxToRem(15)
+  },
   amount        : {
-    fontWeight: 400,
+    fontWeight  : 400,
+    fontSize    : theme.typography.pxToRem(16),
     paddingRight: `${theme.typography.pxToRem(15)} !important`
   },
   amountPositive: {
@@ -51,6 +53,9 @@ const styles = theme => ({
   note          : {
     justifyContent: 'left !important',
     paddingLeft   : theme.typography.pxToRem(20) + `!important`
+  },
+  dateSplitter  : {
+
   }
 })
 
@@ -63,7 +68,7 @@ class Transaction extends React.Component {
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <div className={classes.column}>
             <Typography className={classes.heading}>{transaction.name}</Typography>
-            <Typography variant="caption" >Category: {transaction.category}</Typography>
+            <Typography variant="caption" className={classes.category}>Category: {transaction.category}</Typography>
           </div>
           <Grid container className={classes.column} style={{padding: 0}}
                 alignItems='center'
@@ -75,11 +80,11 @@ class Transaction extends React.Component {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.details}>
           <Typography variant="caption" className={classNames(classes.column, classes.date)}>
-            Debited on <br />
+            {transaction.amount < 0 ? 'Debited' : 'Credited'} on<br />
             <strong>{moment(transaction.creationDate).format('Do MMM YYYY')}</strong>
           </Typography>
           <Typography variant="caption" className={classNames(classes.column, classes.account, classes.helper)}>
-            On the account <br />
+            On account <br />
             <strong>{transaction.account.name}</strong>
           </Typography>
         </ExpansionPanelDetails>
