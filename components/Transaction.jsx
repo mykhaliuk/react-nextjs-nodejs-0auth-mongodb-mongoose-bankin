@@ -27,7 +27,7 @@ const styles = theme => ({
   amount        : {
     fontWeight  : 400,
     fontSize    : theme.typography.pxToRem(16),
-    paddingRight: `${theme.typography.pxToRem(15)} !important`
+    paddingRight: `${theme.typography.pxToRem(20)} !important`
   },
   amountPositive: {
     color: theme.palette.primary.amount + '!important'
@@ -68,7 +68,7 @@ class Transaction extends React.Component {
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <div className={classes.column}>
             <Typography className={classes.heading}>{transaction.name}</Typography>
-            <Typography variant="caption" className={classes.category}>Category: {transaction.category}</Typography>
+            <Typography variant="caption" className={classes.category}>{transaction.category}</Typography>
           </div>
           <Grid container className={classes.column} style={{padding: 0}}
                 alignItems='center'
