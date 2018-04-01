@@ -1,16 +1,18 @@
-import PropTypes    from 'prop-types'
-import Link         from 'next/link'
-import Router       from 'next/router'
-import NProgress    from 'nprogress'
-import Toolbar      from 'material-ui/Toolbar'
-import Grid         from 'material-ui/Grid'
-import Hidden       from 'material-ui/Hidden'
-import Home         from 'material-ui-icons/Home'
+import PropTypes  from 'prop-types'
+import Router     from 'next/router'
+import NProgress  from 'nprogress'
+import Toolbar    from 'material-ui/Toolbar'
+import AppBar     from 'material-ui/AppBar'
+import Button     from 'material-ui/Button'
+import IconButton from 'material-ui/IconButton'
+import MenuIcon   from 'material-ui-icons/Menu'
+import ExitToApp  from 'material-ui-icons/ExitToApp'
+
 import {withStyles} from 'material-ui/styles'
 
 import MenuDrop from './MenuDrop'
 
-import {styleToolbar} from './SharedStyles'
+// import {styleToolbar} from './SharedStyles'
 
 Router.onRouteChangeStart = () => {
   NProgress.start()
@@ -19,7 +21,18 @@ Router.onRouteChangeComplete = () => NProgress.done()
 Router.onRouteChangeError = () => NProgress.done()
 
 const styles = theme => ({
-  icon: {
+  root      : {
+    flexGrow  : 1,
+    fontFamily: theme.typography.fontFamily
+  },
+  flex      : {
+    flex: 1
+  },
+  menuButton: {
+    marginLeft : -12,
+    marginRight: 20
+  },
+  icon      : {
     margin: theme.spacing.unit
   }
 })
@@ -35,43 +48,27 @@ const optionsMenu = [
   }
 ]
 
+const noUserAvatar = '/static/ic_account_circle_black_24px.svg'
+
 function Header({user, classes}) {
   return (
-    <div>
-      <Toolbar style={styleToolbar}>
-        <Grid container direction="row" justify="space-around" alignItems="center">
-          <Grid item sm={10} xs={9} style={{textAlign: 'left'}}>
-            {user ? (
-              <div>
-                <Hidden>
-                  <Link prefetch href="/">
-                    <a><Home className={classes.icon} color={'secondary'} /></a>
-                  </Link>
-                </Hidden>
-              </div>
-            ) : (
-              <Link prefetch href="/">
-                <a>
-                  <Home className={classes.icon} color={'secondary'} />
-                </a>
-              </Link>
-            )}
-          </Grid>
-          <Grid item sm={2} xs={3} style={{textAlign: 'right'}}>
-            {user ? (
-              <div style={{whiteSpace: ' nowrap'}}>
-                {user.avatarUrl ? (
-                  <MenuDrop options={optionsMenu} src={user.avatarUrl} alt="Builder Book" />
-                ) : null}
-              </div>
-            ) : (
-              <Link prefetch href="/login">
-                <a style={{margin: '0px 20px 0px auto'}}>Log&nbsp;in</a>
-              </Link>
-            )}
-          </Grid>
-        </Grid>
-      </Toolbar>
+    <div className={classes.root}>
+      <AppBar position='sticky' color={'inherit'}>
+        <Toolbar>
+          <IconButton className={classes.menuButton} color="secondary" aria-label="Menu">
+            <MenuIcon />
+          </IconButton>
+          <div className={classes.flex}></div>
+          {user
+            ? <MenuDrop options={optionsMenu} src={user.avatarUrl ? user.avatarUrl : noUserAvatar} alt="User menu" />
+            : (<Button className={classes.button} href="/login" color="secondary">
+                <ExitToApp />
+                Sign In / Up
+              </Button>
+            )
+          }
+        </Toolbar>
+      </AppBar>
     </div>
   )
 }

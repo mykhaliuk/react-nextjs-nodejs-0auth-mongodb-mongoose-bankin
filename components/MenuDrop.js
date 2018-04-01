@@ -1,8 +1,18 @@
-import React     from 'react'
-import PropTypes from 'prop-types'
-import Link      from 'next/link'
-import Menu      from 'material-ui/Menu'
-import Avatar    from 'material-ui/Avatar'
+import React            from 'react'
+import PropTypes        from 'prop-types'
+import Link             from 'next/link'
+import Menu, {MenuItem} from 'material-ui/Menu'
+import Avatar           from 'material-ui/Avatar'
+import {withStyles}     from 'material-ui/styles'
+
+const styles = theme => ({
+  link: {
+    fontFamily    : theme.typography.fontFamily,
+    padding       : '0px 20px',
+    textDecoration: 'none',
+    color         : theme.palette.secondary.main + ' !important'
+  }
+})
 
 class MenuDrop extends React.Component {
   static propTypes = {
@@ -27,7 +37,7 @@ class MenuDrop extends React.Component {
   }
 
   render() {
-    const {options, src, alt} = this.props
+    const {classes, options, src, alt} = this.props
 
     return (
       <div>
@@ -39,7 +49,7 @@ class MenuDrop extends React.Component {
           onKeyPress={this.handleClick}
           src={src}
           alt={alt}
-          style={{margin: '0px 20px 0px auto', cursor: 'pointer'}}
+          style={{cursor: 'pointer'}}
         />
         <Menu
           id="simple-menu"
@@ -47,14 +57,13 @@ class MenuDrop extends React.Component {
           open={this.state.open}
           onClose={this.handleClose}
         >
-          <p />
           {options.map(option => (
-            <div id="wrappingLink" key={option.text}>
+            <MenuItem onClick={this.handleClose} key={option.text}>
               <Link prefetch href={option.href} as={option.as || option.href}>
-                <a style={{padding: '0px 20px'}}>{option.text}</a>
+                <a className={classes.link}>{option.text}</a>
               </Link>
               <p />
-            </div>
+            </MenuItem>
           ))}
         </Menu>
       </div>
@@ -62,4 +71,4 @@ class MenuDrop extends React.Component {
   }
 }
 
-export default MenuDrop
+export default withStyles(styles)(MenuDrop)

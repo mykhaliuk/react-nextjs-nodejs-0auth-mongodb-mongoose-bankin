@@ -32,7 +32,7 @@ class Index extends React.Component {
     const {user, classes} = this.props
     // console.log('\n %c index.props: ', 'color: green', this.props)
     return (
-      <div className={this.props.classes.root}>
+      <div className={classes.root}>
         <Head>
           <title>Dashboard</title>
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -42,7 +42,7 @@ class Index extends React.Component {
           <meta name="description" content="money tracking web application" />
 
         </Head>
-        <Grid container spacing={16} className={classes.root} justify="center">
+        <Grid container spacing={16} justify="center">
           <Grid item xs={12} md={9} lg={6}>
             <Dashboard {...this.props} />
           </Grid>

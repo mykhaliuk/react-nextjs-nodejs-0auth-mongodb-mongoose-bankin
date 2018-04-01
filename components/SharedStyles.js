@@ -17,6 +17,7 @@ const styleToolbar = {
 }
 
 const styleLoginButton = {
+  fontFamily     : '"Roboto", "Helvetica", "Arial"',
   borderRadius   : '2px',
   textTransform  : 'none',
   font           : '16px Muli',
