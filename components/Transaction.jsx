@@ -1,6 +1,18 @@
-import React          from 'react'
-import PropTypes      from 'prop-types'
-import {withStyles}   from 'material-ui/styles'
+import React        from 'react'
+import PropTypes    from 'prop-types'
+import {withStyles} from 'material-ui/styles'
+import List, {
+  ListItem,
+  ListItemText,
+  ListItemIcon
+}                   from "material-ui/List"
+import Collapse     from "material-ui/transitions/Collapse"
+import ExpandLess   from "material-ui-icons/ExpandLess"
+import ExpandMore   from "material-ui-icons/ExpandMore"
+
+import StarBorder from "material-ui-icons/StarBorder"
+import InboxIcon  from "material-ui-icons/MoveToInbox"
+
 import classNames     from 'classnames'
 import ExpansionPanel, {
   ExpansionPanelDetails,
@@ -25,9 +37,10 @@ const styles = theme => ({
     // paddingLeft: theme.typography.pxToRem(15)
   },
   amount        : {
-    fontWeight  : 400,
-    fontSize    : theme.typography.pxToRem(16),
-    paddingRight: `${theme.typography.pxToRem(20)} !important`
+    fontWeight: 400,
+    fontSize  : theme.typography.pxToRem(16),
+    // paddingRight: `${theme.typography.pxToRem(0)} !important`,
+    margin    : '10px 0 0 0 '
   },
   amountPositive: {
     color: theme.palette.primary.amount + '!important'
@@ -51,58 +64,91 @@ const styles = theme => ({
     borderLeft: `2px solid ${theme.palette.divider}`
   },
   note          : {
+    flexBasis     : '100%',
     justifyContent: 'left !important',
-    paddingLeft   : theme.typography.pxToRem(20) + `!important`
+    paddingLeft   : theme.typography.pxToRem(20) + `!important`,
+    padding       : `${theme.typography.pxToRem(20)} 0 ${theme.typography.pxToRem(10)} 0`
   },
-  dateSplitter  : {
-
+  listItem      : {
+    padding: '8px 0 '
+  },
+  subListItem   : {
+    padding: '0 0 8px 0 '
+  },
+  divider       : {
+    margin: '0 20px'
+  },
+  noPadding     : {
+    padding: '0 !important'
   }
 })
 
 class Transaction extends React.Component {
+  state = {open: false}
+
+  handleClick = () => {
+    this.setState({open: !this.state.open})
+  }
+
   render() {
     const {handleChange, expanded, transaction, classes} = this.props
 
     return (
-      <ExpansionPanel expanded={expanded === transaction._id.toString()} onChange={handleChange(transaction._id.toString())}>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <div className={classes.column}>
-            <Typography className={classes.heading}>{transaction.name}</Typography>
-            <Typography variant="caption" className={classes.category}>{transaction.category}</Typography>
-          </div>
-          <Grid container className={classes.column} style={{padding: 0}}
-                alignItems='center'
-                direction='row'
-                justify='flex-end'
-          >
-            <Typography className={classNames(classes.amount, transaction.amount > 0 ? classes.amountPositive : '')}>{transaction.amount.formatMoney()}</Typography>
-          </Grid>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails className={classes.details}>
-          <Typography variant="caption" className={classNames(classes.column, classes.date)}>
-            {transaction.amount < 0 ? 'Debited' : 'Credited'} on<br />
-            <strong>{moment(transaction.creationDate).format('Do MMM YYYY')}</strong>
-          </Typography>
-          <Typography variant="caption" className={classNames(classes.column, classes.account, classes.helper)}>
-            On account <br />
-            <strong>{transaction.account.name}</strong>
-          </Typography>
-        </ExpansionPanelDetails>
-        <Divider />
-        <ExpansionPanelActions className={classes.note}>
-          <Typography variant="caption">
-            {transaction.note ? transaction.note : `Why wouldn't you type something here?`}
-          </Typography>
-        </ExpansionPanelActions>
-      </ExpansionPanel>
+      <div>
+        <ListItem button className={classes.listItem} onClick={this.handleClick}>
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText inset primary={
+
+            <Grid container justify='space-between'>
+              <Grid item>
+                <Typography className={classes.heading}>{transaction.name}</Typography>
+                <Typography variant="caption" className={classes.category}>{transaction.category}</Typography>
+              </Grid>
+              <Grid item>
+                <Typography className={classNames(classes.amount, transaction.amount > 0 ? classes.amountPositive : '')}>{transaction.amount.formatMoney()}</Typography>
+              </Grid>
+            </Grid>
+
+          } />
+          {this.state.open ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse
+          in={this.state.open}
+          timeout={300}
+          unmountOnExit
+        >
+          <List component="div" disablePadding>
+            <ListItem button className={classes.subListItem}>
+              <ListItemText className={classes.noPadding} inset primary={
+                <Grid container>
+                  <Typography variant="caption" className={classNames(classes.column, classes.date)} xs={3}>
+                    {transaction.amount < 0 ? 'Debited' : 'Credited'} on<br />
+                    <strong>{moment(transaction.creationDate).format('Do MMM YYYY')}</strong>
+                  </Typography>
+                  <Typography variant="caption" className={classNames(classes.account, classes.helper)}>
+                    On account <br />
+                    <strong>{transaction.account.name}</strong>
+                  </Typography>
+                  <Typography variant="caption" className={classes.note}>
+                    {transaction.note ? transaction.note : `Why wouldn't you type something here?`}
+                  </Typography>
+                </Grid>
+
+              } />
+            </ListItem>
+          </List>
+        </Collapse>
+        <Divider className={classes.divider} light />
+      </div>
     )
   }
 }
 
 Transaction.propTypes = {
-  transaction : PropTypes.object.isRequired,
-  expanded    : PropTypes.string,
-  handleChange: PropTypes.func.isRequired
+  transaction: PropTypes.object.isRequired,
+  expanded   : PropTypes.string
 }
 
 export default withStyles(styles)(Transaction)

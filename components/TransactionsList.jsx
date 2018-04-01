@@ -1,12 +1,24 @@
 import React        from 'react'
 import PropTypes    from 'prop-types'
 import {withStyles} from 'material-ui/styles'
+import moment       from 'moment'
+import Typography   from 'material-ui/Typography'
 
-import Transaction from './Transaction'
+import Transaction   from './Transaction'
+import ListSubheader from "material-ui/List/ListSubheader"
+import List, {
+  ListItem,
+  ListItemText,
+  ListItemIcon
+}                    from "material-ui/List"
 
 const styles = theme => ({
   root            : {
-    flexGrow: 1
+    width          : "100%",
+    backgroundColor: '#FFF',
+    position       : "relative",
+    overflow       : "auto",
+    height         : '60vh'
   },
   heading         : {
     fontSize: theme.typography.pxToRem(15)
@@ -51,33 +63,47 @@ const styles = theme => ({
     '&:hover'     : {
       textDecoration: 'underline'
     }
+  },
+  listSection     : {
+    paddingLeft: 0
+  },
+  listHeading     : {
+    backgroundColor: theme.palette.primary.listHeading
+  },
+  ul              : {
+    backgroundColor: "inherit",
+    padding        : 0
   }
 })
 
 class TransactionsList extends React.Component {
-  state = {
-    expanded: null
-  }
-
-  handleChange = panel => (event, expanded) => {
-    this.setState({
-      expanded: expanded ? panel : null
-    })
-  }
 
   render() {
     const {classes, transactions} = this.props
-    const {expanded} = this.state
+    let currentDate
 
     return (
-      !transactions ? <span /> : <div className={classes.root}>
-        {transactions.map(transaction => <Transaction
-          key={transaction._id.toString()}
-          expanded={this.state.expanded}
-          transaction={transaction}
-          handleChange={this.handleChange}
-        />)}
-      </div>
+      !!transactions
+        ? <List className={classes.root} subheader={<li />} dense={true}>
+          {transactions.map(transaction => {
+              if (transaction.creationDate !== currentDate) {
+                currentDate = transaction.creationDate
+                return (<li key={transaction._id}>
+                  <ul className={classes.listSection}>
+                    <ListSubheader className={classes.listHeading}>
+                      <Typography variant="caption">{moment(transaction.creationDate).format('Do MMM YYYY')}</Typography>
+                    </ListSubheader>
+                    {transactions
+                      .filter(item => item.creationDate === currentDate)
+                      .map(transaction => <Transaction key={`tr-${transaction._id}`} transaction={transaction} />)}
+                  </ul>
+                </li>)
+              }
+              return null
+            }
+          )}
+        </List>
+        : null
     )
   }
 }

@@ -27,7 +27,7 @@ const styles = theme => ({
 
 function TabContainer({children, dir}) {
   return (
-    <Typography component="div" dir={dir} style={{padding: 8 * 3}}>
+    <Typography component="div" dir={dir} style={{padding: 10}}>
       {children}
     </Typography>
   )
@@ -82,7 +82,7 @@ class Dashboard extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar className={''} position="static" color="default">
+        <AppBar position="static" color="default">
           <Tabs
             value={this.state.activeTab}
             onChange={this.handleChangeTab()}
