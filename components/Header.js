@@ -53,7 +53,7 @@ const noUserAvatar = '/static/ic_account_circle_black_24px.svg'
 function Header({user, classes}) {
   return (
     <div className={classes.root}>
-      <AppBar position='sticky' color={'inherit'}>
+      <AppBar position='static' color={'inherit'}>
         <Toolbar>
           <IconButton className={classes.menuButton} color="secondary" aria-label="Menu">
             <MenuIcon />

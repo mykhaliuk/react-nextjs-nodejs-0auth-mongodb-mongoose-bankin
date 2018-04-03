@@ -15,26 +15,24 @@ import InputNameTransaction   from './InputNameTransaction'
 import InputAmountTransaction from './InputAmountTransaction'
 import InputDateTransaction   from './InputDateTransaction'
 
-import TextField from 'material-ui/TextField'
-
-function rand() {
-  return Math.round(Math.random() * 20) - 10
-}
+import TextField     from 'material-ui/TextField'
+import SelectAccount from './SelectAccount'
 
 const styles = theme => ({
   root   : {
-    flexGrow : 1,
-    height   : '100%',
-    maxWidth : theme.typography.pxToRem(375) + '!important',
-    maxHeight: theme.typography.pxToRem(667) + '!important',
-    overflow : 'hidden !important'
+    flexGrow: 1,
+    height  : '100%',
+    width   : '100%',
+    // maxWidth : theme.typography.pxToRem(375) + '!important',
+    // maxHeight: theme.typography.pxToRem(667) + '!important',
+    overflow: 'hidden !important'
   },
   paper  : {
     position       : 'absolute',
-    width          : theme.spacing.unit * 50,
+    // width          : theme.spacing.unit * 45,
     backgroundColor: theme.palette.background.paper,
-    boxShadow      : theme.shadows[5],
-    padding        : theme.spacing.unit * 4
+    boxShadow      : theme.shadows[5]
+    // padding        : theme.spacing.unit * 4
   },
   stepper: {
     maxWidth: 400,
@@ -69,7 +67,7 @@ class DotsMobileStepper extends React.Component {
   state = {
     activeStep: 0,
     name      : '',
-    account   : this.props.user.bankAccounts[0],
+    account   : this.props.user.bankAccounts[0]._id.toString(),
     date      : moment(),
     okGo      : false,
     category  : '',
@@ -95,10 +93,16 @@ class DotsMobileStepper extends React.Component {
       'Choose a category',
       `That wasn't today? Choose when or pass this step`,
       'On which account?',
-      `You can add a note or mark it as a hidden`
-
+      `Here you can add a note and mark it as a hidden`
     ]
   }
+
+  getAccounts = () => {
+    const {user} = this.props
+
+    return user.bankAccounts.map(account => ({id: account._id, name: account.name}))
+  }
+
   getStepsContent = stepIndex => {
     switch (stepIndex) {
       case 0:
@@ -110,7 +114,7 @@ class DotsMobileStepper extends React.Component {
       case 3:
         return <InputDateTransaction onChange={this.handleOnChange} isError={this.state.okGo} />
       case 4:
-        return '👮‍♂️ Under Construction'
+        return <SelectAccount onChange={this.handleOnChange} accounts={this.getAccounts()} value={this.state.account} />
       case 5:
         return '👮‍♂️ Under Construction'
       default:
@@ -133,7 +137,7 @@ class DotsMobileStepper extends React.Component {
     await this.setState({
       [ctx]: e.target.value
     })
-    console.log('state: ', this.state)
+    console.log('state: ', this.state.account)
     this.verifyNmae()
   }
 
@@ -173,7 +177,7 @@ class DotsMobileStepper extends React.Component {
             </Button>
           }
           backButton={
-            <Button size="small" onClick={this.state.activeStep === 0 ? closeModal() : this.handleBack} >
+            <Button size="small" onClick={this.state.activeStep === 0 ? closeModal() : this.handleBack}>
               {!(this.state.activeStep === 0) && (theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />)}
               {this.state.activeStep === 0 ? 'Cancel' : 'Back'}
             </Button>

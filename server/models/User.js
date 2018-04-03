@@ -15,7 +15,7 @@ const defaultCategories = {
   }
 }
 
-const mongoSchema = new Schema({
+const UserSchema = new Schema({
   googleId         : {
     type  : String,
     unique: true
@@ -47,7 +47,10 @@ const mongoSchema = new Schema({
   githubAccessToken: {
     type: String
   },
-  bankAccounts     : Array,
+  bankAccounts     : [{
+    type: Schema.ObjectId,
+    ref : 'BankAccount'
+  }],
   categories       : Object,
   emailVerified    : Boolean
 })
@@ -102,8 +105,16 @@ class UserClass {
   }
 }
 
-mongoSchema.loadClass(UserClass)
+const autoPopulateBankAccount = function (next) {
+  this.populate('bankAccounts')
+  next()
+}
 
-const User = mongoose.model('User', mongoSchema)
+UserSchema.pre('findOne', autoPopulateBankAccount)
+UserSchema.pre('find', autoPopulateBankAccount)
+
+UserSchema.loadClass(UserClass)
+
+const User = mongoose.model('User', UserSchema)
 
 export default User

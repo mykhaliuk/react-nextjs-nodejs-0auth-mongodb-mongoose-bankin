@@ -18,7 +18,7 @@ const styles = theme => ({
     backgroundColor: '#FFF',
     position       : "relative",
     overflow       : "auto",
-    height         : '60vh'
+    height         : '65vh'
   },
   heading         : {
     fontSize: theme.typography.pxToRem(15)
@@ -78,6 +78,11 @@ const styles = theme => ({
 
 class TransactionsList extends React.Component {
 
+  getAccounts = () => {
+    const {accounts} = this.props
+    return accounts.map(account => ({id: account._id.toString(), name: account.name}))
+  }
+
   render() {
     const {classes, transactions} = this.props
     let currentDate
@@ -95,7 +100,7 @@ class TransactionsList extends React.Component {
                     </ListSubheader>
                     {transactions
                       .filter(item => item.creationDate === currentDate)
-                      .map(transaction => <Transaction key={`tr-${transaction._id}`} transaction={transaction} />)}
+                      .map(transaction => <Transaction key={`tr-${transaction._id}`} transaction={transaction} accounts={this.getAccounts()} />)}
                   </ul>
                 </li>)
               }

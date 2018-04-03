@@ -90,8 +90,14 @@ class Transaction extends React.Component {
     this.setState({open: !this.state.open})
   }
 
+  getBankAccountName = id => {
+    const {accounts} = this.props
+
+    return accounts.filter(account => account.id === id)[0].name
+  }
+
   render() {
-    const {handleChange, expanded, transaction, classes} = this.props
+    const {accounts, handleChange, expanded, transaction, classes} = this.props
 
     return (
       <div>
@@ -129,7 +135,7 @@ class Transaction extends React.Component {
                   </Typography>
                   <Typography variant="caption" className={classNames(classes.account, classes.helper)}>
                     On account <br />
-                    <strong>{transaction.account.name}</strong>
+                    <strong>{this.getBankAccountName(transaction.account)}</strong>
                   </Typography>
                   <Typography variant="caption" className={classes.note}>
                     {transaction.note ? transaction.note : `Why wouldn't you type something here?`}

@@ -14,10 +14,10 @@ import KeyboardArrowRight      from 'material-ui-icons/KeyboardArrowRight'
 
 const styles = theme => ({
   root     : {
-    marginTop : theme.spacing.unit * 2,
-    display   : 'flex',
-    // justifyContent: 'stretch',
-    alignItems: 'stretch'
+    marginTop     : theme.spacing.unit * 2,
+    display       : 'flex',
+    justifyContent: 'stretch',
+    alignItems    : 'stretch'
   },
   icon     : {
     color: theme.palette.primary + '!important'
@@ -53,19 +53,18 @@ export class InputDateTransaction extends PureComponent {
 
     return (
       <MuiPickersUtilsProvider utils={MomentUtils} moment={moment} locale={LOCAL}>
-        <div className={classes.root}>
-          <DatePicker
-            animateYearScrolling
-            autoOk
-            format="Do MMM YYYY"
-            label="Pick the date"
-            value={selectedDate}
-            onChange={this.handleDateChange}
-            keyboardIcon={<PermContactCalendar />}
-            leftArrowIcon={<KeyboardArrowLeft />}
-            rightArrowIcon={<KeyboardArrowRight />}
-          />
-        </div>
+        <DatePicker
+          className={classes.root}
+          animateYearScrolling
+          autoOk
+          format="Do MMM YYYY"
+          label="Pick the date"
+          value={selectedDate}
+          onChange={this.handleDateChange}
+          keyboardIcon={<PermContactCalendar />}
+          leftArrowIcon={<KeyboardArrowLeft />}
+          rightArrowIcon={<KeyboardArrowRight />}
+        />
       </MuiPickersUtilsProvider>
     )
   }

@@ -8,7 +8,6 @@ import Tabs, {Tab}    from 'material-ui/Tabs'
 import Typography     from 'material-ui/Typography'
 
 import userAPI                 from '../lib/api/user'
-import GetTabContent           from './GetTabContent'
 import TotalAmount             from './TotalAmount'
 import CreateTransactionButton from './CreateTransactionButton'
 
@@ -18,6 +17,9 @@ import notify           from '../lib/notifier'
 const styles = theme => ({
   root   : {
     backgroundColor: theme.palette.background.paper
+  },
+  appBar: {
+    margin: theme.typography.pxToRem(20) + ' 0'
   },
   caption: {
     textTransform: 'uppercase',
@@ -82,7 +84,7 @@ class Dashboard extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" color="default">
+        <AppBar position="sticky" color="default" className={classes.appBar}>
           <Tabs
             value={this.state.activeTab}
             onChange={this.handleChangeTab()}
@@ -93,7 +95,7 @@ class Dashboard extends React.Component {
             scrollButtons="auto"
           >
             <Tab label="All" />
-            {user.bankAccounts.map(accountID => <GetTabContent id={accountID.toString()} key={accountID.toString()} />)}
+            {user.bankAccounts.map(account => <Tab label={account.name} key={account._id.toString()} />)}
           </Tabs>
         </AppBar>
         <SwipeableViews
@@ -105,7 +107,7 @@ class Dashboard extends React.Component {
             <Grid container align-items='flex-end'>
               <TotalAmount transactions={this.state.userTransactions} />
               <CreateTransactionButton createTransaction={this.createTransaction} user={user} />
-              <TransactionsList transactions={this.state.userTransactions} />
+              <TransactionsList transactions={this.state.userTransactions} accounts={user.bankAccounts}/>
             </Grid>
           </TabContainer>
           <TabContainer value={'5ab63ac6d135e800f9c33d8e'} dir={theme.direction}>Tab Two</TabContainer>

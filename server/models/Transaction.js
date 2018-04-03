@@ -76,14 +76,6 @@ class TransactionClass {
   }
 }
 
-const autoPopulateCategory = function (next) {
-  this.populate('account')
-  next()
-}
-
-TransactionSchema.pre('findOne', autoPopulateCategory)
-TransactionSchema.pre('find', autoPopulateCategory)
-
 TransactionSchema.loadClass(TransactionClass)
 
 export default mongoose.model('Transaction', TransactionSchema)
