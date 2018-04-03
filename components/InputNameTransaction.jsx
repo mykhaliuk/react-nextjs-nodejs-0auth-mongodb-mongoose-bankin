@@ -1,13 +1,7 @@
-import React, {
-  Fragment
-}                    from 'react'
-import PropTypes     from 'prop-types'
-import {withStyles}  from 'material-ui/styles'
-import Input, {
-  InputLabel,
-  InputAdornment
-}                    from 'material-ui/Input'
-import {FormControl} from 'material-ui/Form'
+import React, {Fragment}   from 'react'
+import PropTypes           from 'prop-types'
+import Input, {InputLabel} from 'material-ui/Input'
+import {FormControl}       from 'material-ui/Form'
 
 class InputNameTransaction extends React.Component {
 
