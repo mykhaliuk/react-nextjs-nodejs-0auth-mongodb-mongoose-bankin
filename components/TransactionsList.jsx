@@ -4,7 +4,7 @@ import {withStyles} from 'material-ui/styles'
 import moment       from 'moment'
 import Typography   from 'material-ui/Typography'
 
-import Transaction   from './Transaction'
+import Transaction   from './Transactions'
 import ListSubheader from "material-ui/List/ListSubheader"
 import List, {
   ListItem,

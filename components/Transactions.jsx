@@ -7,8 +7,8 @@ import List, {
   ListItemText
 }                   from "material-ui/List"
 import Collapse     from "material-ui/transitions/Collapse"
-import ExpandLess   from "material-ui-icons/ExpandLess"
-import ExpandMore   from "material-ui-icons/ExpandMore"
+import ExpandLess   from "material-ui-icons/ExpandMore"
+import ExpandMore   from "material-ui-icons/ChevronRight"
 
 import classNames from 'classnames'
 import Typography from 'material-ui/Typography'
@@ -84,7 +84,7 @@ const styles = theme => ({
   }
 })
 
-class Transaction extends React.Component {
+class Transactions extends React.Component {
   state = {open: false}
 
   handleClick = () => {
@@ -155,10 +155,10 @@ class Transaction extends React.Component {
   }
 }
 
-Transaction.propTypes = {
+Transactions.propTypes = {
   transaction: PropTypes.object.isRequired,
   expanded   : PropTypes.string
 }
 
-export default withStyles(styles)(Transaction)
+export default withStyles(styles)(Transactions)
 

@@ -7,7 +7,7 @@ import List, {
   ListItemText
 }                   from 'material-ui/List'
 import Collapse     from 'material-ui/transitions/Collapse'
-import ExpandLess   from 'material-ui-icons/ExpandLess'
+import ExpandLess   from 'material-ui-icons/ExpandMore'
 import ExpandMore   from 'material-ui-icons/ChevronRight'
 
 import {is} from 'immutable'
