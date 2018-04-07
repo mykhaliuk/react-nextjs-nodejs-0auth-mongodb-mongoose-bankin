@@ -1,11 +1,10 @@
-import moment       from 'moment/moment'
-import classNames   from 'classnames'
-import PropTypes    from 'prop-types'
-import {withStyles} from 'material-ui/styles/index'
-import React        from 'react'
-import Typography   from 'material-ui/Typography'
-import Button       from 'material-ui/Button'
-
+import moment        from 'moment/moment'
+import classNames    from 'classnames'
+import PropTypes     from 'prop-types'
+import {withStyles}  from 'material-ui/styles/index'
+import React         from 'react'
+import Typography    from 'material-ui/Typography'
+import Button        from 'material-ui/Button'
 import MobileStepper from 'material-ui/MobileStepper'
 
 import KeyboardArrowLeft      from 'material-ui-icons/KeyboardArrowLeft'
@@ -13,6 +12,7 @@ import KeyboardArrowRight     from 'material-ui-icons/KeyboardArrowRight'
 import InputNameTransaction   from './InputNameTransaction'
 import InputAmountTransaction from './InputAmountTransaction'
 import InputDateTransaction   from './InputDateTransaction'
+import CtegoriesList          from './CategoriesList'
 
 import SelectAccount from './SelectAccount'
 
@@ -65,14 +65,22 @@ class DotsMobileStepper extends React.Component {
     return user.bankAccounts.map(account => ({id: account._id, name: account.name}))
   }
 
+  isCredit = () => () => {
+    const {amount} = this.state
+    return (amount > 0)
+
+  }
+
   getStepsContent = stepIndex => {
+    const {user} = this.props
+
     switch (stepIndex) {
       case 0:
         return <InputNameTransaction onChange={this.handleOnChange} isError={this.state.okGo} />
       case 1:
         return <InputAmountTransaction onChange={this.handleOnChange} isError={this.state.okGo} />
       case 2:
-        return '👮‍♂️ Under Construction'
+        return <CtegoriesList categories={user.categories} onSelect={this.handleOnChange} isCredit={this.isCredit()} />
       case 3:
         return <InputDateTransaction onChange={this.handleOnChange} isError={this.state.okGo} />
       case 4:
@@ -100,7 +108,7 @@ class DotsMobileStepper extends React.Component {
     await this.setState({
       [ctx]: e.target.value
     })
-    console.log('state: ', this.state.account)
+    console.log('state: ', this.state)
     this.verifyNmae()
   }
 

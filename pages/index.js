@@ -6,9 +6,9 @@ import {withStyles} from 'material-ui/styles'
 import Head         from 'next/head'
 import Grid         from 'material-ui/Grid'
 
-import withAuth   from '../lib/withAuth'
-import withLayout from '../lib/withLayout'
-import Dashboard  from '../components/Dashboard'
+import withAuth        from '../lib/withAuth'
+import dashboardLayout from '../layouts/dashboardLayout'
+import Dashboard       from '../components/Dashboard'
 
 const styles = theme => ({
   root: {
@@ -53,4 +53,4 @@ class Index extends React.Component {
   }
 }
 
-export default withAuth(withLayout(withStyles(styles)(Index)))
+export default withAuth(dashboardLayout(withStyles(styles)(Index)))

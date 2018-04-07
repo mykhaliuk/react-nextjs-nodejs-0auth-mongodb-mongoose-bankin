@@ -13,7 +13,7 @@ const styles = theme => ({
     width   : '100%',
     // maxWidth : theme.typography.pxToRem(375) + '!important',
     // maxHeight: theme.typography.pxToRem(667) + '!important',
-    overflow: 'hidden !important'
+    overflow: 'scroll'
   },
   paper: {
     position       : 'absolute',

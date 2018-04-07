@@ -2,7 +2,7 @@ import Head               from 'next/head'
 import Button             from 'material-ui/Button'
 import {withStyles}       from 'material-ui/styles'
 import withAuth           from '../lib/withAuth'
-import withLayout         from '../lib/withLayout'
+import dashboardLayout    from '../layouts/dashboardLayout'
 import {styleLoginButton} from '../components/SharedStyles'
 
 const styles = theme => ({
@@ -44,4 +44,4 @@ const Login = ({classes}) => (
   </div>
 )
 
-export default withAuth(withLayout(withStyles(styles)(Login)), {logoutRequired: true})
+export default withAuth(dashboardLayout(withStyles(styles)(Login)), {logoutRequired: true})

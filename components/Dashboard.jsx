@@ -18,7 +18,7 @@ const styles = theme => ({
   root   : {
     backgroundColor: theme.palette.background.paper
   },
-  appBar: {
+  appBar : {
     margin: theme.typography.pxToRem(20) + ' 0'
   },
   caption: {
@@ -45,8 +45,7 @@ class Dashboard extends React.Component {
     userTransactions: null,
     activeTab       : 0,
     categories      : null,
-    loading         : false,
-    isSnackbarOpen  : false
+    loading         : false
   }
 
   handleChangeTab = () => (event, activeTab) => {
@@ -82,39 +81,37 @@ class Dashboard extends React.Component {
   render() {
     const {classes, theme, user} = this.props
 
-    return (
-      <div className={classes.root}>
-        <AppBar position="sticky" color="default" className={classes.appBar}>
-          <Tabs
-            value={this.state.activeTab}
-            onChange={this.handleChangeTab()}
-            indicatorColor="primary"
-            textColor="primary"
-            fullWidth
-            scrollable
-            scrollButtons="auto"
-          >
-            <Tab label="All" />
-            {user.bankAccounts.map(account => <Tab label={account.name} key={account._id.toString()} />)}
-          </Tabs>
-        </AppBar>
-        <SwipeableViews
-          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-          index={this.state.activeTab}
-          onChangeIndex={this.handleChangeIndex()}
+    return <div className={classes.root}>
+      <AppBar position="sticky" color="default" className={classes.appBar}>
+        <Tabs
+          value={this.state.activeTab}
+          onChange={this.handleChangeTab()}
+          indicatorColor="primary"
+          textColor="primary"
+          fullWidth
+          scrollable
+          scrollButtons="auto"
         >
-          <TabContainer dir={theme.direction}>
-            <Grid container align-items='flex-end'>
-              <TotalAmount transactions={this.state.userTransactions} />
-              <CreateTransactionButton createTransaction={this.createTransaction} user={user} />
-              <TransactionsList transactions={this.state.userTransactions} accounts={user.bankAccounts}/>
-            </Grid>
-          </TabContainer>
-          <TabContainer value={'5ab63ac6d135e800f9c33d8e'} dir={theme.direction}>Tab Two</TabContainer>
-          <TabContainer value={'5ab63a76d135e800f9c33d8d'} dir={theme.direction}>Tab Three</TabContainer>
-        </SwipeableViews>
-      </div>
-    )
+          <Tab label="All" />
+          {user.bankAccounts.map(account => <Tab label={account.name} key={account._id.toString()} />)}
+        </Tabs>
+      </AppBar>
+      <SwipeableViews
+        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+        index={this.state.activeTab}
+        onChangeIndex={this.handleChangeIndex()}
+      >
+        <TabContainer dir={theme.direction}>
+          <Grid container align-items='flex-end'>
+            <TotalAmount transactions={this.state.userTransactions} />
+            <CreateTransactionButton createTransaction={this.createTransaction} user={user} />
+            <TransactionsList transactions={this.state.userTransactions} accounts={user.bankAccounts} />
+          </Grid>
+        </TabContainer>
+        <TabContainer value={'5ab63ac6d135e800f9c33d8e'} dir={theme.direction}>Tab Two</TabContainer>
+        <TabContainer value={'5ab63a76d135e800f9c33d8d'} dir={theme.direction}>Tab Three</TabContainer>
+      </SwipeableViews>
+    </div>
   }
 }
 

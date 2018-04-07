@@ -5,9 +5,9 @@ import CssBaseline        from 'material-ui/CssBaseline'
 
 import getContext from '../lib/context'
 import Header     from '../components/Header'
-import Notifier from '../components/Notifier'
+import Notifier   from '../components/Notifier'
 
-function withLayout(BaseComponent) {
+function dashboardLayout(BaseComponent) {
   class App extends React.Component {
     componentWillMount() {
       this.pageContext = this.props.pageContext || getContext()
@@ -56,4 +56,4 @@ function withLayout(BaseComponent) {
   return App
 }
 
-export default withLayout
+export default dashboardLayout

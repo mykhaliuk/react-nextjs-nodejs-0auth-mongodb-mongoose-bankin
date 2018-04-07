@@ -29,7 +29,7 @@ const TransactionSchema = new mongoose.Schema({
     default: 'EUR'
   },
   category    : {
-    type    : String,
+    type    : Object,
     required: true
   },
   creationDate: {
@@ -59,7 +59,7 @@ class TransactionClass {
     return await this.find({owner: ObjectID(userId)}).sort('-creationDate').exec()
   }
 
-  static async add({name, note, owner, account, amount, currency, category, creationDate, isHidden}) {
+  static async add({name, note, owner, account, amount, currency, category, creationDate, isHidden, icon}) {
 
     const newTransaction = await this.create({
       name,
@@ -69,7 +69,7 @@ class TransactionClass {
       currency,
       category,
       creationDate,
-      isHidden
+      isHidden,
     })
 
     return newTransaction

@@ -3,29 +3,20 @@ import PropTypes    from 'prop-types'
 import {withStyles} from 'material-ui/styles'
 import List, {
   ListItem,
-  ListItemText,
-  ListItemIcon
+  ListItemIcon,
+  ListItemText
 }                   from "material-ui/List"
 import Collapse     from "material-ui/transitions/Collapse"
 import ExpandLess   from "material-ui-icons/ExpandLess"
 import ExpandMore   from "material-ui-icons/ExpandMore"
 
-import StarBorder from "material-ui-icons/StarBorder"
-import InboxIcon  from "material-ui-icons/MoveToInbox"
+import classNames from 'classnames'
+import Typography from 'material-ui/Typography'
+import Divider    from 'material-ui/Divider'
+import Grid       from 'material-ui/Grid'
+import moment     from 'moment'
 
-import classNames     from 'classnames'
-import ExpansionPanel, {
-  ExpansionPanelDetails,
-  ExpansionPanelSummary,
-  ExpansionPanelActions
-}                     from 'material-ui/ExpansionPanel'
-import Typography     from 'material-ui/Typography'
-import ExpandMoreIcon from 'material-ui-icons/ExpandMore'
-import Divider        from 'material-ui/Divider'
-import Grid           from 'material-ui/Grid'
-import moment         from 'moment'
-
-import formatMoney from '../lib/formatMoney'
+import getIcon from '../lib/getIcon'
 
 const styles = theme => ({
   heading       : {
@@ -80,6 +71,16 @@ const styles = theme => ({
   },
   noPadding     : {
     padding: '0 !important'
+  },
+  icon          : {
+    color : '#FFF',
+    // margin: '0 0 0 6px'
+    margin: theme.spacing.unit * .5
+  },
+  iconWrapper   : {
+    width       : '2rem',
+    height      : '2rem',
+    borderRadius: '50%'
   }
 })
 
@@ -102,15 +103,17 @@ class Transaction extends React.Component {
     return (
       <div>
         <ListItem button className={classes.listItem} onClick={this.handleClick}>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
+          <div className={classes.iconWrapper} style={{backgroundColor: `${transaction.category.color}`}}>
+            <ListItemIcon className={classes.icon}>
+              {getIcon(transaction.category)}
+            </ListItemIcon>
+          </div>
           <ListItemText inset primary={
 
             <Grid container justify='space-between'>
               <Grid item>
                 <Typography className={classes.heading}>{transaction.name}</Typography>
-                <Typography variant="caption" className={classes.category}>{transaction.category}</Typography>
+                <Typography variant="caption" className={classes.category}>{transaction.category.name}</Typography>
               </Grid>
               <Grid item>
                 <Typography className={classNames(classes.amount, transaction.amount > 0 ? classes.amountPositive : '')}>{transaction.amount.formatMoney()}</Typography>

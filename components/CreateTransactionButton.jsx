@@ -19,7 +19,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper
   },
   link: {
-    padding       : `0 0 ${theme.typography.pxToRem(10)} 0`,
+    padding       : `0 0 ${theme.typography.pxToRem(20)} 0`,
     textAlign     : 'center',
     color         : theme.palette.primary.main,
     textDecoration: 'none',

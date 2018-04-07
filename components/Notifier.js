@@ -60,17 +60,6 @@ class Notifier extends React.Component {
         SnackbarContentProps={{
           'aria-describedby': 'snackbar-message-id'
         }}
-        action={[
-          <IconButton
-            key="close"
-            aria-label="Close"
-            color="inherit"
-            className={classes.close}
-            onClick={this.handleCloseSnackbar()}
-          >
-            <CloseIcon />
-          </IconButton>
-        ]}
       />
     )
   }

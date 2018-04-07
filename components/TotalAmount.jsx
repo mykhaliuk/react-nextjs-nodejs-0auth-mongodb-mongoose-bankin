@@ -9,9 +9,10 @@ import Spinner     from './Spinner'
 const styles = theme => ({
   root   : {
     backgroundColor: theme.palette.background.paper,
-    padding        : 0 + 'important'
+    padding        : 0
   },
   caption: {
+    fontWeight: 100,
     textTransform: 'uppercase',
     paddingBottom: theme.typography.pxToRem(20) + `!important`
   }
