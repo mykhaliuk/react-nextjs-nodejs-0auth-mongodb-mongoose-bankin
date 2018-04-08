@@ -109,7 +109,7 @@ class DotsMobileStepper extends React.Component {
     await this.setState({
       [ctx]: e.target.value
     })
-    console.log('state: ', this.state)
+    // console.log('state: ', this.state)
     this.verifyNmae()
   }
 

@@ -13,6 +13,7 @@ import CreateTransactionButton from './CreateTransactionButton'
 
 import TransactionsList from './TransactionsList'
 import notify           from '../lib/notifier'
+import moment           from 'moment'
 
 const styles = theme => ({
   root   : {
@@ -64,16 +65,20 @@ class Dashboard extends React.Component {
     const oldTransactions = this.state.userTransactions
     try {
       await this.setState(({userTransactions}) => ({
-        userTransactions: [transaction, ...userTransactions]
+          userTransactions: [
+            ...userTransactions.filter(i => moment(i.creationDate) > moment(transaction.creationDate)),
+            transaction,
+            ...userTransactions.filter(i => moment(i.creationDate) <= moment(transaction.creationDate))
+          ]
         })
       )
-      await userAPI.createTransaction(transaction)
-      notify(`Transaction <strong>${transaction.name}</strong> successfully saved.`)
+      // await userAPI.createTransaction(transaction)
+      notify(`Successfully saved transaction "<strong>${transaction.name}</strong>".`)
     } catch (error) {
-      notify(`Transaction saving <strong>failed</strong>. Error: ${error.message}`)
+      notify(`<strong>Can't save</strong>. Error: ${error.message}`)
       this.setState(({userTransactions}) => ({
         userTransactions: oldTransactions
-      })  )
+      }))
     }
   }
 
