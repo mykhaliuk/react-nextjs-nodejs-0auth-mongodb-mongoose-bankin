@@ -4,14 +4,39 @@ import generateSlug       from '../utils/slugify'
 
 const defaultCategories = {
   Incomes : {
-    Salaries  : 'Salaries',
-    Savings   : 'Savings',
-    Retirement: 'Retirement'
+    Salaries       : {name: "Salaries", icon: "LoginVariant", color: "#00cc8b"},
+    Savings        : {name: "Savings", icon: "LoginVariant", color: "#00cc8b"},
+    'Extra incomes': {name: "Extra incomes", icon: "LoginVariant", color: "#00cc8b"},
+    group          : true
   },
   Expenses: {
-    'Food & Dining': {
-      'Supermarket / Groceries': 'Supermarket / Groceries'
+    'Food & Dining'   : {
+      'Supermarket / Groceries': {name: "Supermarket / Groceries", icon: "FoodApple", color: "#ffb200"},
+      'Food - others'          : {name: "Food - Others", icon: "FoodForkDrink", color: "#ffb200"},
+      'Fast foods'             : {name: "Fast foods", icon: "Food", color: "#ffb200"},
+      'Coffee Shop'            : {name: "Coffee Shop", icon: "Coffee", color: "#ffb200"},
+      group                    : true,
+      name                     : "Food & Dining",
+      icon                     : "FoodCroissant",
+      color                    : "#ffb200"
+    },
+    'Auto & Transport': {
+      'Auto & Transport - others': {name: "Auto & Transport - Others", icon: "RoadVariant", color: "#00cbcb"},
+      'Auto insurance'           : {name: "Auto insurance", icon: "Certificate", color: "#00cbcb"},
+      'Car maintenance'          : {name: "Car maintenance", icon: "Wrench", color: "#00cbcb"},
+      'Car washing'              : {name: "Car washing", icon: "CarWash", color: "#00cbcb"},
+      'Gas & Fuel'               : {name: "Gas & Fuel", icon: "GasStation", color: "#00cbcb"},
+      'Parking'                  : {name: "Parking", icon: "Parking", color: "#00cbcb"},
+      'Public transport'         : {name: "Public transport", icon: "SubwayVariant", color: "#00cbcb"},
+      'Plain'                    : {name: "Plain", icon: "Airplane", color: "#00cbcb"},
+      'Tolls'                    : {name: "Tolls", icon: "Highway", color: "#00cbcb"},
+      'Train tickets'            : {name: "Train tickets", icon: "Train", color: "#00cbcb"},
+      group                      : true,
+      name                       : "Auto & Transport",
+      icon                       : "Steering",
+      color                      : "#00cbcb"
     }
+
   }
 }
 
@@ -117,4 +142,10 @@ UserSchema.loadClass(UserClass)
 
 const User = mongoose.model('User', UserSchema)
 
+/*
+//  uncomment to update categories
+User.findOneAndUpdate({_id: mongoose.Types.ObjectId('5ab8023c7aed5e03a286020c')}, {categories: defaultCategories}, {new: true})
+  .then(ctx => {console.log(ctx)})
+  .catch(err => {console.log(err)})
+*/
 export default User
