@@ -67,8 +67,8 @@ const styles = theme => ({
   listSection     : {
     paddingLeft: 0
   },
-  listHeading     : {
-    backgroundColor: theme.palette.primary.listHeading
+  listGroupHeading: {
+    backgroundColor: theme.palette.primary.listGroupHeading
   },
   ul              : {
     backgroundColor: "inherit",
@@ -77,10 +77,19 @@ const styles = theme => ({
 })
 
 class TransactionsList extends React.Component {
-
   getAccounts = () => {
     const {accounts} = this.props
     return accounts.map(account => ({id: account._id.toString(), name: account.name}))
+  }
+
+  getDate = (date) => {
+    const today = moment(new Date()).endOf('day')
+    const yesterday = moment(new Date()).add(-1, 'days').endOf('day')
+
+    if (moment(date).add(1, 'days').endOf('day') <= yesterday) return moment(date).format('Do MMM YYYY')
+    if (moment(date).endOf('day') <= yesterday) return 'Yesterday'
+    if (moment(date).endOf('day') <= today) return 'Today'
+    return moment(date).format('Do MMM YYYY')
   }
 
   render() {
@@ -95,8 +104,8 @@ class TransactionsList extends React.Component {
                 currentDate = transaction.creationDate
                 return (<li key={transaction._id || transaction.name}>
                   <ul className={classes.listSection}>
-                    <ListSubheader className={classes.listHeading}>
-                      <Typography variant="caption">{moment(transaction.creationDate).format('Do MMM YYYY')}</Typography>
+                    <ListSubheader className={classes.listGroupHeading}>
+                      <Typography variant="caption">{this.getDate(transaction.creationDate)}</Typography>
                     </ListSubheader>
                     {transactions
                       .filter(item => item.creationDate === currentDate)

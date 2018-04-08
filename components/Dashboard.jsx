@@ -73,7 +73,7 @@ class Dashboard extends React.Component {
           ]
         })
       )
-      // await userAPI.createTransaction(transaction)
+      await userAPI.createTransaction(transaction)
       notify(`Successfully saved transaction "<strong>${transaction.name}</strong>".`)
     } catch (error) {
       notify(`<strong>Can't save</strong>. Error: ${error.message}`)
