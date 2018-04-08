@@ -65,6 +65,7 @@ class Dashboard extends React.Component {
     const oldTransactions = this.state.userTransactions
     try {
       await this.setState(({userTransactions}) => ({
+        // put item in right place relatively creation Date
           userTransactions: [
             ...userTransactions.filter(i => moment(i.creationDate) > moment(transaction.creationDate)),
             transaction,
