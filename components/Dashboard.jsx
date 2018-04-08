@@ -60,6 +60,23 @@ class Dashboard extends React.Component {
     userTransaction: {...this.state.userTransactions, transaction}
   })
 
+  addTransaction = async (transaction) => {
+    const oldTransactions = this.state.userTransactions
+    try {
+      await this.setState(({userTransactions}) => ({
+        userTransactions: [transaction, ...userTransactions]
+        })
+      )
+      await userAPI.createTransaction(transaction)
+      notify(`Transaction <strong>${transaction.name}</strong> successfully saved.`)
+    } catch (error) {
+      notify(`Transaction saving <strong>failed</strong>. Error: ${error.message}`)
+      this.setState(({userTransactions}) => ({
+        userTransactions: oldTransactions
+      })  )
+    }
+  }
+
   async componentDidMount() {
     const {user} = this.props
 
@@ -104,7 +121,7 @@ class Dashboard extends React.Component {
         <TabContainer dir={theme.direction}>
           <Grid container align-items='flex-end'>
             <TotalAmount transactions={this.state.userTransactions} />
-            <CreateTransactionButton createTransaction={this.createTransaction} user={user} />
+            <CreateTransactionButton createTransaction={this.createTransaction} user={user} addTransaction={this.addTransaction} />
             <TransactionsList transactions={this.state.userTransactions} accounts={user.bankAccounts} />
           </Grid>
         </TabContainer>

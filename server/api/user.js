@@ -46,7 +46,7 @@ router.get('/transactions/all', async (req, res) => {
   }
 })
 
-router.post('/transactions/all', async (req, res) => {
+router.post('/transactions', async (req, res) => {
   const {
           name, note, account, amount, currency, subCategory, category, creationDate, isHidden
         }     = req.body,

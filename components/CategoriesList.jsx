@@ -46,8 +46,13 @@ class CategoriesList extends React.Component {
         ? {open: open.filter(itemId => itemId !== id)}
         : {open: open.concat(id)}
     })
+  }
 
-    console.log('open: ', this.state.open)
+  onSelect = (value) => () => {
+    const {onSelect, next} = this.props
+
+    onSelect('category')({target: {value}})
+    next()
   }
 
   async componentDidMount() {
@@ -62,20 +67,15 @@ class CategoriesList extends React.Component {
       expenses,
       incomes
     })
-
-    console.log('in', incomes)
-    console.log('ex', expenses)
-
   }
 
   componentDidUpdate(prevProps, {incomes, expenses, categoriesList}, snapshot) {
-    console.log('\n categoriesList', categoriesList)
     const {isCredit} = this.props
     const categories = isCredit() ? incomes : expenses
 
-    !is(categoriesList, categories) && this.setState({
+    !is(categoriesList, categories) && this.setState(() => ({
       categoriesList: categories
-    })
+    }))
 
     /*categoriesList && Object.keys(categoriesList).map((category) => {
       console.log('===========================================')
@@ -100,7 +100,7 @@ class CategoriesList extends React.Component {
   }
 
   render() {
-    const {onSelect, classes} = this.props
+    const {classes} = this.props
     const {open, categoriesList} = this.state
 
     return (!categoriesList
@@ -110,8 +110,8 @@ class CategoriesList extends React.Component {
             {Object.keys(categoriesList).map(category => {
               if (categoriesList[category] instanceof Object && categoriesList[category].group) {
                 return (
-                  <React.Fragment>
-                    <ListItem button key={categoriesList[category].name} onClick={this.handleClick(categoriesList[category].name)}>
+                  <React.Fragment key={categoriesList[category].name}>
+                    <ListItem button onClick={this.handleClick(categoriesList[category].name)}>
                       <div className={classes.iconWrapper} style={{backgroundColor: `${categoriesList[category].color}`}}>
                         <ListItemIcon className={classes.icon}>
                           {getIcon(categoriesList[category])}
@@ -127,8 +127,13 @@ class CategoriesList extends React.Component {
                               return null
                             }
                             return (
-                              <ListItem key={categoriesList[category][sub].name} button className={classes.nested}>
-                                <div className={classes.iconWrapper} style={{backgroundColor: `${categoriesList[category][sub].color}`}}>
+                              <ListItem
+                                key={categoriesList[category][sub].name}
+                                button
+                                className={classes.nested}
+                                onClick={this.onSelect(categoriesList[category][sub])}>
+                                <div className={classes.iconWrapper} style={{backgroundColor: `${categoriesList[category][sub].color}`}}
+                                >
                                   <ListItemIcon className={classes.icon}>
                                     {getIcon(categoriesList[category][sub])}
                                   </ListItemIcon>
@@ -145,7 +150,11 @@ class CategoriesList extends React.Component {
               } else {
                 if (categoriesList[category] instanceof Object) {
                   return (
-                    <ListItem button key={categoriesList[category].name}>
+                    <ListItem
+                      button
+                      key={categoriesList[category].name}
+                      onClick={this.onSelect(categoriesList[category])}
+                    >
                       <div className={classes.iconWrapper} style={{backgroundColor: `${categoriesList[category].color}`}}>
                         <ListItemIcon className={classes.icon}>
                           {getIcon(categoriesList[category])}
@@ -167,7 +176,8 @@ CategoriesList.propTypes = {
   classes   : PropTypes.object.isRequired,
   categories: PropTypes.object.isRequired,
   onSelect  : PropTypes.func.isRequired,
-  isCredit  : PropTypes.func.isRequired
+  isCredit  : PropTypes.func.isRequired,
+  next      : PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(CategoriesList)

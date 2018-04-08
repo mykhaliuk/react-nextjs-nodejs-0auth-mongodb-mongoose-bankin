@@ -37,20 +37,21 @@ class CreateTransactionButton extends React.Component {
   }
 
   handleModalToggle = () => (e) => {
+    // e.preventDefault()
     this.setState({
       isModalOpen: !this.state.isModalOpen
     })
   }
 
   render() {
-    const {user, classes} = this.props
+    const {user, classes, addTransaction} = this.props
 
     return (
       <React.Fragment>
         <Grid item className={classes.root} xs={12}>
           <Typography variant='button' className={classNames(classes.link)} onClick={this.handleModalToggle()}>Add new transaction</Typography>
         </Grid>
-        <CreateTransactionModal onClose={this.handleModalToggle} open={this.state.isModalOpen} user={user} />
+        <CreateTransactionModal onClose={this.handleModalToggle} open={this.state.isModalOpen} user={user} addTransaction={addTransaction} />
       </React.Fragment>
     )
   }

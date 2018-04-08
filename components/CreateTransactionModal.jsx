@@ -27,7 +27,7 @@ const styles = theme => ({
 class CreateTransactionModal extends React.Component {
 
   render() {
-    const {classes, open, onClose, user} = this.props
+    const {classes, open, onClose, user, addTransaction} = this.props
 
     return (
       <Modal
@@ -37,7 +37,7 @@ class CreateTransactionModal extends React.Component {
         onClose={onClose()}
       >
         <div className={classNames(classes.paper, classes.root)}>
-          <DotsMobileStepper closeModal={onClose} user={user} />
+          <DotsMobileStepper closeModal={onClose} user={user} addTransaction={addTransaction}/>
         </div>
       </Modal>
     )

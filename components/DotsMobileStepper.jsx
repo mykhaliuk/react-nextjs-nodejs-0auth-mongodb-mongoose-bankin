@@ -13,8 +13,9 @@ import InputNameTransaction   from './InputNameTransaction'
 import InputAmountTransaction from './InputAmountTransaction'
 import InputDateTransaction   from './InputDateTransaction'
 import CtegoriesList          from './CategoriesList'
+import SelectAccount          from './SelectAccount'
 
-import SelectAccount from './SelectAccount'
+import notify from '../lib/notifier'
 
 const styles = theme => ({
   stepper: {
@@ -27,13 +28,13 @@ const styles = theme => ({
 
 class DotsMobileStepper extends React.Component {
   state = {
-    activeStep: 0,
-    name      : '',
-    account   : this.props.user.bankAccounts[0]._id.toString(),
-    date      : moment(),
-    okGo      : false,
-    category  : '',
-    hidden    : false
+    activeStep  : 0,
+    name        : '',
+    account     : this.props.user.bankAccounts[0]._id.toString(),
+    creationDate: moment(),
+    okGo        : false,
+    category    : null,
+    hidden      : false
   }
 
   handleNext = () => {
@@ -80,7 +81,7 @@ class DotsMobileStepper extends React.Component {
       case 1:
         return <InputAmountTransaction onChange={this.handleOnChange} isError={this.state.okGo} />
       case 2:
-        return <CtegoriesList categories={user.categories} onSelect={this.handleOnChange} isCredit={this.isCredit()} />
+        return <CtegoriesList categories={user.categories} onSelect={this.handleOnChange} isCredit={this.isCredit()} next={this.handleNext} />
       case 3:
         return <InputDateTransaction onChange={this.handleOnChange} isError={this.state.okGo} />
       case 4:
@@ -112,6 +113,20 @@ class DotsMobileStepper extends React.Component {
     this.verifyNmae()
   }
 
+  createTransaction = (cb) => () => {
+    console.log('creating transaction')
+    const {name, note, account, amount, currency, category, creationDate, isHidden} = this.state
+    const owner = this.props.user._id
+    const {addTransaction, closeModal} = this.props
+
+    if (name && owner && amount && category) {
+      const transaction = {name, owner, note, account, amount, currency, category, creationDate, isHidden}
+
+      addTransaction(transaction) // pass verified transaction to add to App.state
+      closeModal()() // close modal window
+    }
+  }
+
   isLastStep() {
     return this.state.activeStep === this.totalSteps() - 1
   }
@@ -140,7 +155,7 @@ class DotsMobileStepper extends React.Component {
           nextButton={
             <Button
               size="small"
-              onClick={this.isLastStep() ? closeModal() : this.handleNext}
+              onClick={this.isLastStep() ? this.createTransaction() : this.handleNext}
               disabled={!this.state.okGo}
             >
               {this.isLastStep() ? 'Create' : 'Next'}

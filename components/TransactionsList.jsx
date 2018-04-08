@@ -93,14 +93,14 @@ class TransactionsList extends React.Component {
           {transactions.map(transaction => {
               if (transaction.creationDate !== currentDate) {
                 currentDate = transaction.creationDate
-                return (<li key={transaction._id}>
+                return (<li key={transaction._id || transaction.name}>
                   <ul className={classes.listSection}>
                     <ListSubheader className={classes.listHeading}>
                       <Typography variant="caption">{moment(transaction.creationDate).format('Do MMM YYYY')}</Typography>
                     </ListSubheader>
                     {transactions
                       .filter(item => item.creationDate === currentDate)
-                      .map(transaction => <Transaction key={`tr-${transaction._id}`} transaction={transaction} accounts={this.getAccounts()} />)}
+                      .map(transaction => <Transaction key={`tr-${transaction._id || transaction.name}`} transaction={transaction} accounts={this.getAccounts()} />)}
                   </ul>
                 </li>)
               }
