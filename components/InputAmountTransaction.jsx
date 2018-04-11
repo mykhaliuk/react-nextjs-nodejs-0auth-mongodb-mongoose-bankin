@@ -25,7 +25,6 @@ class InputAmountTransaction extends React.Component {
       <Fragment>
         <FormControl fullWidth>
           <Input
-            type='number'
             placeholder='€ 0.00'
             fullWidth
             autoFocus

@@ -85,7 +85,7 @@ const defaultCategories = {
       color               : "#FC5D6A"
     },
     'Withdrawals, checks & transfer': {
-      'Checks'           : {name: "Checks", icon: "TicketOutline", color: "#19C95D"},
+      'Checks'           : {name: "Checks", icon: "Newspaper", color: "#19C95D"},
       'Internal transfer': {name: "Internal transfer", icon: "CreditCard", color: "#19C95D"},
       'Transfer'         : {name: "Transfer", icon: "SendSecure", color: "#19C95D"},
       'Withdrawals'      : {name: "Withdrawals", icon: "CashMultiple", color: "#19C95D"},
@@ -94,9 +94,9 @@ const defaultCategories = {
       icon               : "CreditCard",
       color              : "#19C95D"
     },
-    'Misc expenses'                : {
+    'Misc expenses'                 : {
       'Insurance'             : {name: "Insurance", icon: "Umbrella", color: "#9FC3D3"},
-      'Laundry / Dry cleaning': {name: "Laundry / Dry cleaning", icon: "TumbleDryer", color: "#9FC3D3"},
+      'Laundry / Dry cleaning': {name: "Laundry / Dry cleaning", icon: "WashingMachine", color: "#9FC3D3"},
       'Others spending'       : {name: "Others spending", icon: "CubeUnfolded", color: "#9FC3D3"},
       'Uncategorized'         : {name: "Uncategorized", icon: "CubeUnfolded", color: "#9FC3D3"},
       name                    : "Misc. expenses",
@@ -209,9 +209,11 @@ UserSchema.loadClass(UserClass)
 
 const User = mongoose.model('User', UserSchema)
 
-/*//  uncomment to update categories
+/*
+//  uncomment to update categories
 User.findOneAndUpdate({_id: mongoose.Types.ObjectId('5ab8023c7aed5e03a286020c')}, {categories: defaultCategories}, {new: true})
   .then(ctx => {console.log(ctx)})
-  .catch(err => {console.log(err)})*/
+  .catch(err => {console.log(err)})
+*/
 
 export default User
