@@ -14,6 +14,7 @@ import InputAmountTransaction from './InputAmountTransaction'
 import InputDateTransaction   from './InputDateTransaction'
 import CtegoriesList          from './CategoriesList'
 import SelectAccount          from './SelectAccount'
+import InputNoteTransaction   from './InputNoteTransaction'
 
 import notify from '../lib/notifier'
 
@@ -37,6 +38,7 @@ class DotsMobileStepper extends React.Component {
     creationDate: moment(),
     okGo        : false,
     category    : null,
+    note        : '',
     hidden      : false
   }
 
@@ -92,7 +94,7 @@ class DotsMobileStepper extends React.Component {
       case 4:
         return <SelectAccount onChange={this.handleOnChange} accounts={this.getAccounts()} value={this.state.account} next={this.handleNext} />
       case 5:
-        return '👮‍♂️ Under Construction'
+        return <InputNoteTransaction onChange={this.handleOnChangeNote} onSwitch={this.handleOnChange} isHidden={this.state.hidden} />
       default:
         return 'Unknown stepIndex'
     }
@@ -115,6 +117,15 @@ class DotsMobileStepper extends React.Component {
     })
     // console.log('state: ', this.state)
     this.verifyNmae()
+  }
+
+  handleOnChangeNote = (e) => {
+    this.setState({
+      note: 'Note: ' + e.target.value
+    })
+    if (this.state.note.length >= 50) {
+      notify("Note message shouldn't be more than 50 characters length.")
+    }
   }
 
   createTransaction = (cb) => () => {

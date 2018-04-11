@@ -62,10 +62,12 @@ class Dashboard extends React.Component {
   })
 
   addTransaction = async (transaction) => {
+    // save old state
     const oldTransactions = this.state.userTransactions
     try {
+      // change state immediately
       await this.setState(({userTransactions}) => ({
-        // put item in right place relatively creation Date
+          // put item in right place relatively creation Date
           userTransactions: [
             ...userTransactions.filter(i => moment(i.creationDate) > moment(transaction.creationDate)),
             transaction,
@@ -73,9 +75,13 @@ class Dashboard extends React.Component {
           ]
         })
       )
-      await userAPI.createTransaction(transaction)
+
+      // trying to make changes at the back end
+      await userAPI.createTransaction(transaction)  // !!!!!!! should be uncommented  !!!!!!
+      // if successful
       notify(`Successfully saved transaction "<strong>${transaction.name}</strong>".`)
     } catch (error) {
+      // if no, revert the old state and notify
       notify(`<strong>Can't save</strong>. Error: ${error.message}`)
       this.setState(({userTransactions}) => ({
         userTransactions: oldTransactions

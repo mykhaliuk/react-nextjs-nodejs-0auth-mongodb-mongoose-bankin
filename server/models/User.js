@@ -24,7 +24,7 @@ const defaultCategories = {
       'Auto & Transport - others': {name: "Auto & Transport - Others", icon: "RoadVariant", color: "#00cbcb"},
       'Auto insurance'           : {name: "Auto insurance", icon: "Certificate", color: "#00cbcb"},
       'Car maintenance'          : {name: "Car maintenance", icon: "Wrench", color: "#00cbcb"},
-      'Car washing'              : {name: "Car maintenance", icon: "CarWash", color: "#00cbcb"},
+      'Car washing'              : {name: "Car washing", icon: "CarWash", color: "#00cbcb"},
       'Gas & Fuel'               : {name: "Gas & Fuel", icon: "GasStation", color: "#00cbcb"},
       'Parking'                  : {name: "Parking", icon: "Parking", color: "#00cbcb"},
       'Public transport'         : {name: "Public transport", icon: "SubwayVariant", color: "#00cbcb"},

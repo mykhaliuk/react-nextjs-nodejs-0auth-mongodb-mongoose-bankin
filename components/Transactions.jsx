@@ -9,6 +9,7 @@ import List, {
 import Collapse     from "material-ui/transitions/Collapse"
 import ExpandLess   from "material-ui-icons/ExpandMore"
 import ExpandMore   from "material-ui-icons/ChevronRight"
+import Tooltip      from 'material-ui/Tooltip'
 
 import classNames from 'classnames'
 import Typography from 'material-ui/Typography'
@@ -140,11 +141,10 @@ class Transactions extends React.Component {
                     On account <br />
                     <strong>{this.getBankAccountName(transaction.account)}</strong>
                   </Typography>
-                  <Typography variant="caption" className={classes.note}>
+                  <Typography noWrap variant="caption" className={classes.note}>
                     {transaction.note ? transaction.note : `Why wouldn't you type something here?`}
                   </Typography>
                 </Grid>
-
               } />
             </ListItem>
           </List>
