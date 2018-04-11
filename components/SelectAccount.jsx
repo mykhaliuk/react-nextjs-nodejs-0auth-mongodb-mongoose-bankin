@@ -38,7 +38,7 @@ class SelectAccount extends React.Component {
   }
 
   render() {
-    const {classes, accounts, value} = this.props
+    const {classes, accounts, next, value} = this.props
 
     return (
       <FormControl className={classes.formControl}>
@@ -46,6 +46,7 @@ class SelectAccount extends React.Component {
           native
           value={this.state.account}
           onChange={this.handleChange}
+          onBlur={next}
           className={classes.selectEmpty}
         >
           {accounts.map(account => <option key={account.id} value={account.id}>{account.name}</option>)}

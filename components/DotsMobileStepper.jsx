@@ -23,6 +23,9 @@ const styles = theme => ({
   },
   hidden : {
     display: 'none'
+  },
+  content: {
+    marginBottom: theme.typography.pxToRem(54 - 16)
   }
 })
 
@@ -38,7 +41,9 @@ class DotsMobileStepper extends React.Component {
   }
 
   handleNext = () => {
-    this.setState({
+    const {okGo} = this.state
+
+    okGo && this.setState({
       activeStep: this.state.activeStep + 1
     })
   }
@@ -77,19 +82,18 @@ class DotsMobileStepper extends React.Component {
 
     switch (stepIndex) {
       case 0:
-        return <InputNameTransaction onChange={this.handleOnChange} isError={this.state.okGo} />
+        return <InputNameTransaction onChange={this.handleOnChange} isError={this.state.okGo} next={this.handleNext} />
       case 1:
-        return <InputAmountTransaction onChange={this.handleOnChange} isError={this.state.okGo} />
+        return <InputAmountTransaction onChange={this.handleOnChange} isError={this.state.okGo} next={this.handleNext} />
       case 2:
         return <CtegoriesList categories={user.categories} onSelect={this.handleOnChange} isCredit={this.isCredit()} next={this.handleNext} />
       case 3:
-        return <InputDateTransaction onChange={this.handleOnChange} isError={this.state.okGo} />
+        return <InputDateTransaction onChange={this.handleOnChange} isError={this.state.okGo} next={this.handleNext} />
       case 4:
-        return <SelectAccount onChange={this.handleOnChange} accounts={this.getAccounts()} value={this.state.account} />
+        return <SelectAccount onChange={this.handleOnChange} accounts={this.getAccounts()} value={this.state.account} next={this.handleNext} />
       case 5:
         return '👮‍♂️ Under Construction'
       default:
-
         return 'Unknown stepIndex'
     }
   }
@@ -139,7 +143,7 @@ class DotsMobileStepper extends React.Component {
     return (
       <React.Fragment>
         {steps.map((content, index) => {
-          return (<div className={classNames(activeStep !== index ? classes.hidden : '')} key={index}>
+          return (<div className={classNames(classes.content, activeStep !== index ? classes.hidden : '')} key={index}>
             <Typography variant="display1">
               {content}
             </Typography>

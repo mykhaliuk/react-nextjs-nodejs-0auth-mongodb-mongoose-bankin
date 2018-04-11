@@ -11,23 +11,27 @@ import Input, {
 import {FormControl} from 'material-ui/Form'
 
 class InputAmountTransaction extends React.Component {
-  removeDecimals = (cb) => (e) => {
+  removeDecimals = () => (e) => {
+    const {onChange} = this.props
+
     e.target.value *= 100
-    cb('amount')(e)
+    onChange('amount')(e)
   }
 
   render() {
-    const {onChange, isError = false} = this.props
+    const {onChange, next, isError = false} = this.props
 
     return (
       <Fragment>
         <FormControl fullWidth>
           <Input
+            type='number'
             placeholder='€ 0.00'
             fullWidth
             autoFocus
             error={!isError}
-            onChange={this.removeDecimals(onChange)}
+            onChange={this.removeDecimals()}
+            onBlur={next}
             inputComponent={NumberFormatCustom}
           />
         </FormControl>

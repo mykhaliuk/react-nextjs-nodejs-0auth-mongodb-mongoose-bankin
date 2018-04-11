@@ -6,12 +6,13 @@ import {FormControl}       from 'material-ui/Form'
 class InputNameTransaction extends React.Component {
 
   render() {
-    const {onChange, isError} = this.props
+    const {onChange, isError, next} = this.props
+    let isTouched = false
 
     return (
       <Fragment>
         <FormControl fullWidth>
-          <InputLabel htmlFor="name">Name</InputLabel>
+          <InputLabel htmlFor="name">{!isError && 'Name must contain at least 3 symbols'}</InputLabel>
           <Input
             id='name'
             error={!isError}
@@ -22,6 +23,7 @@ class InputNameTransaction extends React.Component {
               'aria-label': 'Description'
             }}
             onChange={onChange('name')}
+            onBlur={next}
           />
         </FormControl>
       </Fragment>
