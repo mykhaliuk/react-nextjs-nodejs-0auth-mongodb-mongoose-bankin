@@ -10,7 +10,7 @@ const defaultCategories = {
     group          : true
   },
   Expenses: {
-    'Food & Dining'   : {
+    'Food & Dining'    : {
       'Supermarket / Groceries': {name: "Supermarket / Groceries", icon: "FoodApple", color: "#ffb200"},
       'Food - others'          : {name: "Food - Others", icon: "FoodForkDrink", color: "#ffb200"},
       'Fast foods'             : {name: "Fast foods", icon: "Food", color: "#ffb200"},
@@ -20,7 +20,7 @@ const defaultCategories = {
       icon                     : "FoodCroissant",
       color                    : "#ffb200"
     },
-    'Auto & Transport': {
+    'Auto & Transport' : {
       'Auto & Transport - others': {name: "Auto & Transport - Others", icon: "RoadVariant", color: "#00cbcb"},
       'Auto insurance'           : {name: "Auto insurance", icon: "Certificate", color: "#00cbcb"},
       'Car maintenance'          : {name: "Car maintenance", icon: "Wrench", color: "#00cbcb"},
@@ -35,6 +35,29 @@ const defaultCategories = {
       name                       : "Auto & Transport",
       icon                       : "Steering",
       color                      : "#00cbcb"
+    },
+    Bank               : {
+      'Bank - Others'           : {name: "Bank - Others", icon: "Bitcoin", color: "#b78667"},
+      'Banking fees and charges': {name: "Banking fees and charges", icon: "Percent", color: "#b78667"},
+      'Banking services'        : {name: "Banking services", icon: "Margin", color: "#b78667"},
+      'Monthly Debit'           : {name: "Monthly Debit", icon: "LogoutVariant", color: "#b78667"},
+      'Mortgage refund'         : {name: "Mortgage refund", icon: "Finance", color: "#b78667"},
+      'Savings'                 : {name: "Savings", icon: "TreasureChest", color: "#b78667"},
+      group                     : true,
+      name                      : "Bank",
+      icon                      : "Bank",
+      color                     : "#b78667"
+    },
+    'Bills & Utilities': {
+      'Home phone'           : {name: "Home phone", icon: "Deskphone", color: "#c294c2"},
+      'Cable TV'             : {name: "Cable TV", icon: "Television", color: "#c294c2"},
+      'Internet'             : {name: "Internet", icon: "AccessPoint", color: "#c294c2"},
+      'Mobile phone'         : {name: "Mobile phone", icon: "CellphoneIphone", color: "#c294c2"},
+      'Subscription - Others': {name: "Subscription - Others", icon: "Sync", color: "#c294c2"},
+      group                  : true,
+      name                   : "Bills & Utilities",
+      icon                   : "CellphoneAndroid",
+      color                  : "#c294c2"
     }
 
   }
@@ -142,10 +165,9 @@ UserSchema.loadClass(UserClass)
 
 const User = mongoose.model('User', UserSchema)
 
-/*
 //  uncomment to update categories
 User.findOneAndUpdate({_id: mongoose.Types.ObjectId('5ab8023c7aed5e03a286020c')}, {categories: defaultCategories}, {new: true})
   .then(ctx => {console.log(ctx)})
   .catch(err => {console.log(err)})
-*/
+
 export default User
