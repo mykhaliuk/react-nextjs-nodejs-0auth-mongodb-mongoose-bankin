@@ -111,7 +111,7 @@ class Transactions extends React.Component {
           </div>
           <ListItemText inset primary={
             <Grid container justify='space-between'>
-              <Grid item>
+              <Grid item xs={7} sm={9}>
                 <Typography noWrap className={classes.heading}>{transaction.name}</Typography>
                 <Typography variant="caption" className={classes.category}>{transaction.category.name}</Typography>
               </Grid>
