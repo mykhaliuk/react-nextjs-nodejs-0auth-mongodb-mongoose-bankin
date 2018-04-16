@@ -12,7 +12,7 @@ class InputNameTransaction extends React.Component {
     return (
       <Fragment>
         <FormControl fullWidth>
-          <InputLabel htmlFor="name">{!isError && 'Name must contain at least 3 symbols'}</InputLabel>
+          <InputLabel htmlFor="title">{!isError && 'Name must contain at least 3 symbols'}</InputLabel>
           <Input
             id='title'
             type='text'
