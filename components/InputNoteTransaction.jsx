@@ -43,6 +43,7 @@ class InputNoteTransaction extends React.Component {
       <div className={classes.container}>
         <TextField
           placeholder="Your note here"
+          type='text'
           fullWidth
           multiline
           rows={2}

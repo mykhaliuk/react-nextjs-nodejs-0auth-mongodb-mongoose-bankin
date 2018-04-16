@@ -14,7 +14,8 @@ class InputNameTransaction extends React.Component {
         <FormControl fullWidth>
           <InputLabel htmlFor="name">{!isError && 'Name must contain at least 3 symbols'}</InputLabel>
           <Input
-            id='name'
+            id='title'
+            type='text'
             error={!isError}
             autoFocus
             placeholder="Name of transaction"
