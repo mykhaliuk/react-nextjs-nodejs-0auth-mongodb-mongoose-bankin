@@ -74,9 +74,9 @@ const styles = theme => ({
     padding: '0 !important'
   },
   icon          : {
-    color : '#FFF',
-    // margin: '0 0 0 6px'
-    margin: theme.spacing.unit * .5
+    // color : 'red',
+    fontSize: '1rem',
+    margin: '4px 0 0 10px !important',
   },
   iconWrapper   : {
     width       : '2rem',
@@ -104,8 +104,8 @@ class Transactions extends React.Component {
     return (
       <div>
         <ListItem button className={classes.listItem} onClick={this.handleClick}>
-          <div className={classes.iconWrapper} style={{backgroundColor: `${transaction.category.color}`}}>
-            <ListItemIcon className={classes.icon}>
+          <div className={classes.iconWrapper} style={{backgroundColor:  '#FFF'}}>
+            <ListItemIcon className={classes.icon} style={{color: transaction.category.color }}>
               {getIcon(transaction.category)}
             </ListItemIcon>
           </div>

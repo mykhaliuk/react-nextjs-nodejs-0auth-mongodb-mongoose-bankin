@@ -1,113 +1,142 @@
-import _                  from 'lodash'
-import mongoose, {Schema} from 'mongoose'
-import generateSlug       from '../utils/slugify'
+import _                    from 'lodash'
+import mongoose, { Schema } from 'mongoose'
+import generateSlug         from '../utils/slugify'
+import { faCheckSquare }    from '@fortawesome/free-solid-svg-icons/index'
 
 const defaultCategories = {
   Incomes : {
-    Salaries       : {name: "Salaries", icon: "LoginVariant", color: "#00cc8b"},
-    Savings        : {name: "Savings", icon: "LoginVariant", color: "#00cc8b"},
-    'Extra incomes': {name: "Extra incomes", icon: "LoginVariant", color: "#00cc8b"},
+    Salaries       : {name: "Salaries", icon: "sign-in-alt", color: "#00cc8b"},
+    Savings        : {name: "Savings", icon: "sign-in-alt", color: "#00cc8b"},
+    'Extra incomes': {name: "Extra incomes", icon: "sign-in-alt", color: "#00cc8b"},
     group          : true
   },
   Expenses: {
     'Food & Dining'                 : {
-      'Supermarket / Groceries': {name: "Supermarket / Groceries", icon: "FoodApple", color: "#ffb200"},
-      'Food - others'          : {name: "Food - Others", icon: "FoodForkDrink", color: "#ffb200"},
-      'Fast foods'             : {name: "Fast foods", icon: "Food", color: "#ffb200"},
-      'Coffee Shop'            : {name: "Coffee Shop", icon: "Coffee", color: "#ffb200"},
+      'Supermarket / Groceries': {name: "Supermarket / Groceries", icon: "shopping-basket", color: "#ffb200"},
+      'Food - others'          : {name: "Food - Others", icon: "lemon", color: "#ffb200"},
+      'Fast foods'             : {name: "Fast foods", icon: "poo", color: "#ffb200"},
+      'Coffee Shop'            : {name: "Coffee Shop", icon: "coffee", color: "#ffb200"},
       group                    : true,
       name                     : "Food & Dining",
-      icon                     : "FoodCroissant",
+      icon                     : "utensils",
       color                    : "#ffb200"
     },
     'Auto & Transport'              : {
-      'Auto & Transport - others': {name: "Auto & Transport - Others", icon: "RoadVariant", color: "#00cbcb"},
-      'Auto insurance'           : {name: "Auto insurance", icon: "Certificate", color: "#00cbcb"},
-      'Car maintenance'          : {name: "Car maintenance", icon: "Wrench", color: "#00cbcb"},
-      'Car washing'              : {name: "Car washing", icon: "CarWash", color: "#00cbcb"},
-      'Gas & Fuel'               : {name: "Gas & Fuel", icon: "GasStation", color: "#00cbcb"},
-      'Parking'                  : {name: "Parking", icon: "Parking", color: "#00cbcb"},
-      'Public transport'         : {name: "Public transport", icon: "SubwayVariant", color: "#00cbcb"},
-      'Plain'                    : {name: "Plain", icon: "Airplane", color: "#00cbcb"},
-      'Tolls'                    : {name: "Tolls", icon: "Highway", color: "#00cbcb"},
-      'Train tickets'            : {name: "Train tickets", icon: "Train", color: "#00cbcb"},
+      'Auto & Transport - others': {name: "Auto & Transport - Others", icon: "taxi", color: "#00cbcb"},
+      'Auto insurance'           : {name: "Auto insurance", icon: "shield-alt", color: "#00cbcb"},
+      'Car maintenance'          : {name: "Car maintenance", icon: "wrench", color: "#00cbcb"},
+      'Car washing'              : {name: "Car washing", icon: "warehouse", color: "#00cbcb"},
+      'Gas & Fuel'               : {name: "Gas & Fuel", icon: "fire", color: "#00cbcb"},
+      'Parking'                  : {name: "Parking", icon: "flag-checkered", color: "#00cbcb"},
+      'Public transport'         : {name: "Public transport", icon: "bus", color: "#00cbcb"},
+      'Plain'                    : {name: "Plain", icon: "plane", color: "#00cbcb"},
+      'Tolls'                    : {name: "Tolls", icon: "road", color: "#00cbcb"},
+      'Train tickets'            : {name: "Train tickets", icon: "train", color: "#00cbcb"},
       group                      : true,
       name                       : "Auto & Transport",
-      icon                       : "Steering",
+      icon                       : "car",
       color                      : "#00cbcb"
     },
     Bank                            : {
-      'Bank - Others'           : {name: "Bank - Others", icon: "Bitcoin", color: "#b78667"},
-      'Banking fees and charges': {name: "Banking fees and charges", icon: "Percent", color: "#b78667"},
-      'Banking services'        : {name: "Banking services", icon: "Margin", color: "#b78667"},
-      'Monthly Debit'           : {name: "Monthly Debit", icon: "LogoutVariant", color: "#b78667"},
-      'Mortgage refund'         : {name: "Mortgage refund", icon: "Finance", color: "#b78667"},
-      'Savings'                 : {name: "Savings", icon: "TreasureChest", color: "#b78667"},
+      'Bank - Others'           : {name: "Bank - Others", icon: "credit-card", color: "#b78667"},
+      'Banking fees and charges': {name: "Banking fees and charges", icon: "gavel", color: "#b78667"},
+      'Banking services'        : {name: "Banking services", icon: "percent", color: "#b78667"},
+      'Monthly Debit'           : {name: "Monthly Debit", icon: "chart-line", color: "#b78667"},
+      'Mortgage refund'         : {name: "Mortgage refund", icon: "exchange-alt", color: "#b78667"},
+      'Savings'                 : {name: "Savings", icon: "piggy-bank", color: "#b78667"},
       group                     : true,
       name                      : "Bank",
-      icon                      : "Bank",
+      icon                      : "university",
       color                     : "#b78667"
     },
     'Bills & Utilities'             : {
-      'Home phone'           : {name: "Home phone", icon: "Deskphone", color: "#c294c2"},
-      'Cable TV'             : {name: "Cable TV", icon: "Television", color: "#c294c2"},
-      'Internet'             : {name: "Internet", icon: "SignalVariant", color: "#c294c2"},
-      'Mobile phone'         : {name: "Mobile phone", icon: "CellphoneIphone", color: "#c294c2"},
-      'Subscription - Others': {name: "Subscription - Others", icon: "Sync", color: "#c294c2"},
+      'Home phone'           : {name: "Home phone", icon: "phone-square", color: "#c294c2"},
+      'Cable TV'             : {name: "Cable TV", icon: "tv", color: "#c294c2"},
+      'Internet'             : {name: "Internet", icon: "wifi", color: "#c294c2"},
+      'Mobile phone'         : {name: "Mobile phone", icon: "mobile-alt", color: "#c294c2"},
+      'Subscription - Others': {name: "Subscription - Others", icon: "sync-alt", color: "#c294c2"},
       group                  : true,
       name                   : "Bills & Utilities",
-      icon                   : "CellphoneAndroid",
+      icon                   : "chart-bar",
       color                  : "#c294c2"
     },
     'Education & Children'          : {
-      'Education & Children - Others': {name: "Education & Children - Others", icon: "HumanGreeting", color: "#F9B68A"},
-      'Baby-sitter & Daycare'        : {name: "Baby-sitter & Daycare", icon: "LeadPencil", color: "#F9B68A"},
-      'Pension'                      : {name: "Pension", icon: "LeadPencil", color: "#F9B68A"},
-      'School supplies'              : {name: "School supplies", icon: "LeadPencil", color: "#F9B68A"},
-      'Student loan'                 : {name: "Student loan", icon: "LeadPencil", color: "#F9B68A"},
-      'Tuition'                      : {name: "Tuition", icon: "LeadPencil", color: "#F9B68A"},
-      'Toys'                         : {name: "Toys", icon: "LeadPencil", color: "#F9B68A"},
+      'Education & Children - Others': {name: "Education & Children - Others", icon: "graduation-cap", color: "#F9B68A"},
+      'Baby-sitter & Daycare'        : {name: "Baby-sitter & Daycare", icon: "child", color: "#F9B68A"},
+      'Pension'                      : {name: "Pension", icon: "pencil-alt", color: "#F9B68A"},
+      'School supplies'              : {name: "School supplies", icon: "pencil-alt", color: "#F9B68A"},
+      'Student loan'                 : {name: "Student loan", icon: "building", color: "#F9B68A"},
+      'Tuition'                      : {name: "Tuition", icon: "pencil-alt", color: "#F9B68A"},
+      'Toys'                         : {name: "Toys", icon: "fighter-jet", color: "#F9B68A"},
       group                          : true,
       name                           : "Education & Children",
-      icon                           : "LeadPencil",
+      icon                           : "graduation-cap",
       color                          : "#F9B68A"
     },
     Health                          : {
-      'Health - Other'    : {name: "Health - Other", icon: "HeartPulse", color: "#FC5D6A"},
-      Dentist             : {name: "Dentist", icon: "ToothOutline", color: "#FC5D6A"},
-      Doctor              : {name: "Doctor", icon: "MedicalBag", color: "#FC5D6A"},
-      'Health insurance'  : {name: "Health insurance", icon: "ClipboardPulseOutline", color: "#FC5D6A"},
-      'Optician / Eyecare': {name: "Optician / Eyecare", icon: "EyeSettingsOutline", color: "#FC5D6A"},
-      'Pharmacy'          : {name: "Pharmacy", icon: "Pill", color: "#FC5D6A"},
+      'Health - Other'    : {name: "Health - Other", icon: "hand-holding-heart", color: "#FC5D6A"},
+      Dentist             : {name: "Dentist", icon: "user-md", color: "#FC5D6A"},
+      Doctor              : {name: "Doctor", icon: "medkit", color: "#FC5D6A"},
+      'Health insurance'  : {name: "Health insurance", icon: "notes-medical", color: "#FC5D6A"},
+      'Optician / Eyecare': {name: "Optician / Eyecare", icon: "eye", color: "#FC5D6A"},
+      'Pharmacy'          : {name: "Pharmacy", icon: "capsules", color: "#FC5D6A"},
       group               : true,
       name                : "Health",
-      icon                : "Hospital",
+      icon                : "heartbeat",
       color               : "#FC5D6A"
     },
     'Withdrawals, checks & transfer': {
-      'Checks'           : {name: "Checks", icon: "Newspaper", color: "#19C95D"},
-      'Internal transfer': {name: "Internal transfer", icon: "CreditCard", color: "#19C95D"},
-      'Transfer'         : {name: "Transfer", icon: "SendSecure", color: "#19C95D"},
-      'Withdrawals'      : {name: "Withdrawals", icon: "CashMultiple", color: "#19C95D"},
+      'Checks'           : {name: "Checks", icon: "ticket-alt", color: "#19C95D"},
+      'Internal transfer': {name: "Internal transfer", icon: "exchange-alt", color: "#19C95D"},
+      'Transfer'         : {name: "Transfer", icon: "share-square", color: "#19C95D"},
+      'Withdrawals'      : {name: "Withdrawals", icon: "money-bill-alt", color: "#19C95D"},
       name               : 'Withdrawals, checks & transfer',
       group              : true,
-      icon               : "CreditCard",
+      icon               : "money-bill-alt",
       color              : "#19C95D"
     },
     'Misc expenses'                 : {
-      'Insurance'             : {name: "Insurance", icon: "Umbrella", color: "#9FC3D3"},
-      'Laundry / Dry cleaning': {name: "Laundry / Dry cleaning", icon: "WashingMachine", color: "#9FC3D3"},
-      'Others spending'       : {name: "Others spending", icon: "CubeUnfolded", color: "#9FC3D3"},
-      'Uncategorized'         : {name: "Uncategorized", icon: "CubeUnfolded", color: "#9FC3D3"},
+      'Insurance'             : {name: "Insurance", icon: "users", color: "#9FC3D3"},
+      'Laundry / Dry cleaning': {name: "Laundry / Dry cleaning", icon: "diagnoses", color: "#9FC3D3"},
+      'Others spending'       : {name: "Others spending", icon: "birthday-cake", color: "#9FC3D3"},
+      'Uncategorized'         : {name: "Uncategorized", icon: "barcode", color: "#9FC3D3"},
       name                    : "Misc. expenses",
       group                   : true,
-      icon                    : "React",
+      icon                    : "magic",
       color                   : "#9FC3D3"
+    },
+    'Entertainment'                 : {
+      'Amusements'            : {name: "Amusements", icon: "gamepad", color: "#9b59b6"},
+      'Arts & Amusement'      : {name: "Arts & Amusement", icon: "camera-retro", color: "#9b59b6"},
+      'Bars & Clubs'          : {name: "Bars & Clubs", icon: "beer", color: "#9b59b6"},
+      'Eating out'            : {name: "Eating out", icon: "wine-glass", color: "#9b59b6"},
+      'Entertainment - Others': {name: "Entertainment - Others", icon: "at", color: "#9b59b6"},
+      'Hobbies'               : {name: "Hobbies", icon: "golf-ball", color: "#9b59b6"},
+      'Hotels'                : {name: "Hotels", icon: "bed", color: "#9b59b6"},
+      'Pets'                  : {name: "Pets", icon: "paw", color: "#9b59b6"},
+      'Sports'                : {name: "Sports", icon: "volleyball-ball", color: "#9b59b6"},
+      'Travels / Vacation'    : {name: "Travels / Vacation", icon: "suitcase", color: "#9b59b6"},
+      'Winter sports'         : {name: "Winter sports", icon: "snowflake", color: "#9b59b6"},
+      name                    : "Entertainment",
+      group                   : true,
+      icon                    : "rocket",
+      color                   : "#9b59b6"
+    },
+    'Personal care'                 : {
+      'Beauty care'           : {name: "Beauty care", icon: "eye", color: "#ff87c2"},
+      'Cosmetics'             : {name: "Cosmetics", icon: "paint-brush", color: "#ff87c2"},
+      'Hairdresser'           : {name: "Hairdresser", icon: "cut", color: "#ff87c2"},
+      'Spa & Massage'         : {name: "Spa & Massage", icon: "diagnoses", color: "#ff87c2"},
+      'Personal care - others': {name: "Personal care - others", icon: "heart", color: "#ff87c2"},
+      name                    : "Personal care",
+      group                   : true,
+      icon                    : "leaf",
+      color                   : "#ff87c2"
     }
   }
 }
 
-const UserSchema = new Schema({
+const UserSchema = new Schema( {
   googleId         : {
     type  : String,
     unique: true
@@ -139,24 +168,24 @@ const UserSchema = new Schema({
   githubAccessToken: {
     type: String
   },
-  bankAccounts     : [{
+  bankAccounts     : [ {
     type: Schema.ObjectId,
     ref : 'BankAccount'
-  }],
+  } ],
   categories       : Object,
   emailVerified    : Boolean
-})
+} )
 
 class UserClass {
   // User's public fields
   static publicFields() {
-    return ['id', 'displayName', 'email', 'avatarUrl', 'slug', 'isAdmin', 'isGithubConnected', 'bankAccounts', 'emailVerified', 'categories']
+    return [ 'id', 'displayName', 'email', 'avatarUrl', 'slug', 'isAdmin', 'isGithubConnected', 'bankAccounts', 'emailVerified', 'categories' ]
   }
 
-  static async signInOrSignUp({
+  static async signInOrSignUp( {
     googleId, email, googleToken, displayName, avatarUrl, bankAccounts, emailVerified, categories = defaultCategories
-  }) {
-    const user = await this.findOne({googleId}).select(UserClass.publicFields().join(' '))
+  } ) {
+    const user = await this.findOne( {googleId} ).select( UserClass.publicFields().join( ' ' ) )
 
     if (user) {
       const modifier = {}
@@ -169,18 +198,18 @@ class UserClass {
         modifier.refresh_token = googleToken.refreshToken
       }
 
-      if (_.isEmpty(modifier)) {
+      if (_.isEmpty( modifier )) {
         return user
       }
 
-      await this.updateOne({googleId}, {$set: modifier})
+      await this.updateOne( {googleId}, {$set: modifier} )
 
       return user
     }
 
-    const slug = await generateSlug(this, displayName)
+    const slug = await generateSlug( this, displayName )
 
-    const newUser = await this.create({
+    const newUser = await this.create( {
       createdAt: new Date(),
       googleId,
       email,
@@ -191,29 +220,27 @@ class UserClass {
       bankAccounts,
       emailVerified,
       categories
-    })
+    } )
 
-    return _.pick(newUser, UserClass.publicFields())
+    return _.pick( newUser, UserClass.publicFields() )
   }
 }
 
-const autoPopulateBankAccount = function (next) {
-  this.populate('bankAccounts')
+const autoPopulateBankAccount = function ( next ) {
+  this.populate( 'bankAccounts' )
   next()
 }
 
-UserSchema.pre('findOne', autoPopulateBankAccount)
-UserSchema.pre('find', autoPopulateBankAccount)
+UserSchema.pre( 'findOne', autoPopulateBankAccount )
+UserSchema.pre( 'find', autoPopulateBankAccount )
 
-UserSchema.loadClass(UserClass)
+UserSchema.loadClass( UserClass )
 
-const User = mongoose.model('User', UserSchema)
+const User = mongoose.model( 'User', UserSchema )
 
-/*
 //  uncomment to update categories
 User.findOneAndUpdate({_id: mongoose.Types.ObjectId('5ab8023c7aed5e03a286020c')}, {categories: defaultCategories}, {new: true})
   .then(ctx => {console.log(ctx)})
   .catch(err => {console.log(err)})
-*/
 
 export default User

@@ -1,31 +1,37 @@
 /* eslint react/prefer-stateless-function: 0 */
 
-import React        from 'react'
-import PropTypes    from 'prop-types'
-import {withStyles} from 'material-ui/styles'
-import Head         from 'next/head'
-import Grid         from 'material-ui/Grid'
+import React          from 'react'
+import PropTypes      from 'prop-types'
+import { withStyles } from 'material-ui/styles'
+import Head           from 'next/head'
+import Grid           from 'material-ui/Grid'
 
-import withAuth        from '../lib/withAuth'
-import dashboardLayout from '../layouts/dashboardLayout'
-import Dashboard       from '../components/Dashboard'
+import { InitFontAwesome } from '../lib/getIcon'
+import withAuth            from '../lib/withAuth'
+import dashboardLayout     from '../layouts/dashboardLayout'
+import Dashboard           from '../components/Dashboard'
 
-const styles = theme => ({
+const styles = theme => ( {
   root: {
     flexGrow: 1
   }
-})
+} )
 
 class Index extends React.Component {
 
   static propTypes = {
-    user: PropTypes.shape({
+    user: PropTypes.shape( {
       email: PropTypes.string.isRequired
-    })
+    } )
   }
 
   static defaultProps = {
     user: null
+  }
+
+  componentDidMount() {
+    // Initialize font library
+    InitFontAwesome()
   }
 
   render() {
@@ -53,4 +59,4 @@ class Index extends React.Component {
   }
 }
 
-export default withAuth(dashboardLayout(withStyles(styles)(Index)))
+export default withAuth( dashboardLayout( withStyles( styles )( Index ) ) )

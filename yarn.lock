@@ -78,6 +78,28 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
+"@fortawesome/fontawesome-common-types@^0.2.0-6":
+  version "0.2.0-6"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.0-6.tgz#2e472bfbdfd05dcfe910e9f1649b2832eab6201e"
+
+"@fortawesome/fontawesome-svg-core@^1.2.0-11":
+  version "1.2.0-11"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.0-11.tgz#b8ee99b3a078f5253623a631a122ff60a6e5bb4c"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.0-6"
+
+"@fortawesome/free-solid-svg-icons@^5.1.0-8":
+  version "5.1.0-8"
+  resolved "https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.1.0-8.tgz#ea061224673b8bf225be4e4641d81cbb6fe098d0"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.0-6"
+
+"@fortawesome/react-fontawesome@^0.1.0-8":
+  version "0.1.0-8"
+  resolved "https://registry.yarnpkg.com/@fortawesome/react-fontawesome/-/react-fontawesome-0.1.0-8.tgz#a1541dc32cdae269c0c935ebc8925ce186e56a39"
+  dependencies:
+    humps "^2.0.1"
+
 "@types/jss@^9.3.0":
   version "9.3.3"
   resolved "https://registry.yarnpkg.com/@types/jss/-/jss-9.3.3.tgz#818c6281c1909bfba173ee220fd1236fdeeb708e"
@@ -3266,6 +3288,10 @@ https-browserify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
 
+humps@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/humps/-/humps-2.0.1.tgz#dd02ea6081bd0568dc5d073184463957ba9ef9aa"
+
 hyphenate-style-name@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/hyphenate-style-name/-/hyphenate-style-name-1.0.2.tgz#31160a36930adaf1fc04c6074f7eb41465d4ec4b"
@@ -5310,9 +5336,10 @@ react-loaders@^3.0.1:
     classnames "^2.2.3"
 
 react-number-format@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/react-number-format/-/react-number-format-3.3.0.tgz#e59884075bccd80af6c1f521f2bef2f564cb3e24"
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/react-number-format/-/react-number-format-3.3.3.tgz#16ff2c4a21c666cab0afd93e3b81c1ed717fefdf"
   dependencies:
+    babel-runtime "^6.26.0"
     prop-types "^15.6.0"
 
 react-popper@^0.8.0:

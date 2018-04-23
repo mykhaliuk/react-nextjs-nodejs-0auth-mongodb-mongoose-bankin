@@ -25,7 +25,7 @@ const styles = theme => ({
   icon       : {
     color : '#FFF',
     // margin: '0 0 0 6px'
-    margin: theme.spacing.unit * .5
+    // margin: theme.spacing.unit * .5
   },
   iconWrapper: {
     width       : '2rem',
