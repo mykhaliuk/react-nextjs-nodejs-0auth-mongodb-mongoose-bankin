@@ -238,9 +238,9 @@ UserSchema.loadClass( UserClass )
 
 const User = mongoose.model( 'User', UserSchema )
 
-//  uncomment to update categories
+/*//  uncomment to update categories
 User.findOneAndUpdate({_id: mongoose.Types.ObjectId('5ab8023c7aed5e03a286020c')}, {categories: defaultCategories}, {new: true})
   .then(ctx => {console.log(ctx)})
-  .catch(err => {console.log(err)})
+  .catch(err => {console.log(err)})*/
 
 export default User
