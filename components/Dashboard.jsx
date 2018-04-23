@@ -134,11 +134,23 @@ class Dashboard extends React.Component {
           <Grid container align-items='flex-end'>
             <TotalAmount transactions={this.state.userTransactions} />
             <CreateTransactionButton createTransaction={this.createTransaction} user={user} addTransaction={this.addTransaction} />
-            <TransactionsList transactions={this.state.userTransactions} accounts={user.bankAccounts} account={'all'} />
+            <TransactionsList transactions={this.state.userTransactions} accounts={user.bankAccounts} account={null} />
           </Grid>
         </TabContainer>
-        <TabContainer value={'5ab63ac6d135e800f9c33d8e'} dir={theme.direction}>Tab Two</TabContainer>
-        <TabContainer value={'5ab63a76d135e800f9c33d8d'} dir={theme.direction}>Tab Three</TabContainer>
+        {user.bankAccounts.map(account => {
+          return <TabContainer
+            value={'5ab63ac6d135e800f9c33d8e'}
+            label={account.name}
+            key={account._id.toString()}
+            dir={theme.direction}
+          >
+            <Grid container align-items='flex-end'>
+              <TotalAmount transactions={this.state.userTransactions} account={account}/>
+              <CreateTransactionButton createTransaction={this.createTransaction} user={user} addTransaction={this.addTransaction} />
+              <TransactionsList transactions={this.state.userTransactions} accounts={user.bankAccounts} account={account} />
+            </Grid>
+          </TabContainer>
+        })}
       </SwipeableViews>
     </div>
   }

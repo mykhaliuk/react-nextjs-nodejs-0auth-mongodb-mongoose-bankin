@@ -93,13 +93,16 @@ class TransactionsList extends React.Component {
   }
 
   render() {
-    const {classes, transactions} = this.props
+    const {classes, transactions, account} = this.props
     let currentDate
+    const filteredTransactions = !!transactions && !!account
+      ? transactions.filter( tr => ( tr.account.toString() === account._id.toString() ) )
+      : transactions
 
     return (
-      !!transactions
+      !!filteredTransactions
         ? <List className={classes.root} subheader={<li />} dense={true}>
-          {transactions.map( transaction => {
+          {filteredTransactions.map( transaction => {
               if (transaction.creationDate !== currentDate) {
                 currentDate = transaction.creationDate
                 return ( <li key={transaction._id || transaction.name}>
@@ -107,7 +110,7 @@ class TransactionsList extends React.Component {
                     <ListSubheader className={classes.listGroupHeading}>
                       <Typography variant="caption">{this.getDate( transaction.creationDate )}</Typography>
                     </ListSubheader>
-                    {transactions
+                    {filteredTransactions
                       .filter( item => item.creationDate === currentDate )
                       .map( transaction => <Transaction key={`tr-${transaction._id || transaction.name}`} transaction={transaction} accounts={this.getAccounts()} /> )}
                   </ul>
@@ -123,7 +126,9 @@ class TransactionsList extends React.Component {
 }
 
 TransactionsList.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes     : PropTypes.object.isRequired,
+  transactions: PropTypes.array,
+  account     : PropTypes.object
 }
 
 export default withStyles( styles )( TransactionsList )

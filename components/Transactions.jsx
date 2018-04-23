@@ -9,7 +9,6 @@ import List, {
 import Collapse       from "material-ui/transitions/Collapse"
 import ExpandLess     from "material-ui-icons/ExpandMore"
 import ExpandMore     from "material-ui-icons/ChevronRight"
-import Tooltip        from 'material-ui/Tooltip'
 
 import classNames from 'classnames'
 import Typography from 'material-ui/Typography'
@@ -121,7 +120,7 @@ class Transactions extends React.Component {
             </Grid>
 
           } />
-          {this.state.open ? <ExpandLess /> : <ExpandMore />}
+          {this.state.open ? <ExpandLess style={{color: '#aaa'}}/> : <ExpandMore style={{color: '#999'}}/>}
         </ListItem>
         <Collapse
           in={this.state.open}
