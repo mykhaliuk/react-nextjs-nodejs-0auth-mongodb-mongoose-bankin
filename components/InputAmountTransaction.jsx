@@ -1,21 +1,21 @@
 import React, {
   Fragment
-}                    from 'react'
-import PropTypes     from 'prop-types'
-import {withStyles}  from 'material-ui/styles/index'
-import NumberFormat  from 'react-number-format'
+}                      from 'react'
+import PropTypes       from 'prop-types'
+import { withStyles }  from 'material-ui/styles/index'
+import NumberFormat    from 'react-number-format'
 import Input, {
   InputLabel,
   InputAdornment
-}                    from 'material-ui/Input'
-import {FormControl} from 'material-ui/Form'
+}                      from 'material-ui/Input'
+import { FormControl } from 'material-ui/Form'
 
 class InputAmountTransaction extends React.Component {
-  removeDecimals = () => (e) => {
+  removeDecimals = () => ( e ) => {
     const {onChange} = this.props
 
     e.target.value *= 100
-    onChange('amount')(e)
+    onChange( 'amount' )( e )
   }
 
   render() {
@@ -45,7 +45,7 @@ InputAmountTransaction.propTypes = {
   isError : PropTypes.bool
 }
 
-export function NumberFormatCustom(props) {
+export function NumberFormatCustom( props ) {
   const {inputRef, onChange, ...other} = props
 
   return (
@@ -53,11 +53,11 @@ export function NumberFormatCustom(props) {
       {...other}
       ref={inputRef}
       onValueChange={values => {
-        onChange({
+        onChange( {
           target: {
             value: values.value
           }
-        })
+        } )
       }}
       decimalScale={2}
       fixedDecimalScale

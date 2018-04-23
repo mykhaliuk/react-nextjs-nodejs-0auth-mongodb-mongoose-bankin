@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import User     from './User'
 
 const ObjectsId = mongoose.Types.ObjectId
-const BankAccountSchema = new mongoose.Schema({
+const BankAccountSchema = new mongoose.Schema( {
   name        : {
     type    : String,
     required: true
@@ -20,44 +20,44 @@ const BankAccountSchema = new mongoose.Schema({
     type   : String,
     default: 'Checking'
   }
-})
+} )
 
 class BankAccountClass {
-  static async accountDataById(id) {
-    const accountData = await this.findById(id)
+  static async accountDataById( id ) {
+    const accountData = await this.findById( id )
 
     if (!accountData) {
-      throw new Error('Not found')
+      throw new Error( 'Not found' )
     }
 
     return accountData
   }
 
-  static async add({
+  static async add( {
     user_id,
     name,
     currency,
     description = null,
     CreationDate,
     type
-  }) {
-    const newAccount = await this.create({
+  } ) {
+    const newAccount = await this.create( {
       name,
       currency,
       description,
       CreationDate,
       type
-    })
+    } )
 
     const newAccount_id = newAccount._id
 
-    await User.findOneAndUpdate({_id: ObjectsId(user_id)}, {'$push': {bankAccounts: newAccount_id}})
+    await User.findOneAndUpdate( {_id: ObjectsId( user_id )}, {'$push': {bankAccounts: newAccount_id}} )
 
     return newAccount
   }
 }
 
-BankAccountSchema.loadClass(BankAccountClass)
+BankAccountSchema.loadClass( BankAccountClass )
 
 /*BankAccountSchema.virtual('transactions', {
   ref         : 'Transaction',
@@ -68,4 +68,4 @@ BankAccountSchema.loadClass(BankAccountClass)
 /*BankAccountSchema.set('toObject', {virtuals: true})
 BankAccountSchema.set('toJSON', {virtuals: true})*/
 
-export default mongoose.model('BankAccount', BankAccountSchema)
+export default mongoose.model( 'BankAccount', BankAccountSchema )

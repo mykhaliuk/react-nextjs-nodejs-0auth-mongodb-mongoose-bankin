@@ -5,10 +5,10 @@ module.exports = {
     browser: true,
     jest   : true
   },
-  plugins: ['react', 'jsx-a11y', 'import'],
+  plugins: [ 'react', 'jsx-a11y', 'import' ],
   rules  : {
-    'max-len'                     : ['error', 100],
-    'no-underscore-dangle'        : ['error', {allow: ['_id']}],
+    'max-len'                     : [ 'error', 100 ],
+    'no-underscore-dangle'        : [ 'error', {allow: [ '_id' ]} ],
     'prefer-destructuring'        : [
       'error',
       {
@@ -31,7 +31,7 @@ module.exports = {
     'react/jsx-filename-extension': [
       'error',
       {
-        extensions: ['.js']
+        extensions: [ '.js' ]
       }
     ]
   }

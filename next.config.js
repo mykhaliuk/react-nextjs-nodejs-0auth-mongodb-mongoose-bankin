@@ -1,9 +1,9 @@
-const webpack = require('webpack')
+const webpack = require( 'webpack' )
 
-require('dotenv').config()
+require( 'dotenv' ).config()
 
 module.exports = {
-  webpack: (config, {dev}) => {
+  webpack: ( config, {dev} ) => {
     config.module.rules.push(
       {
         test   : /\.(css|scss)/,
@@ -26,9 +26,9 @@ module.exports = {
       // do that with webpack. Note we use dotenv module to import environment
       // variables configured in .env. This can be useful for setting options
       // for things like API URL hostnames.
-      new webpack.DefinePlugin({
-        'process.env.MY_ENV_VAR': JSON.stringify(process.env.MY_ENV_VAR)
-      })
+      new webpack.DefinePlugin( {
+        'process.env.MY_ENV_VAR': JSON.stringify( process.env.MY_ENV_VAR )
+      } )
     )
     return config
   }

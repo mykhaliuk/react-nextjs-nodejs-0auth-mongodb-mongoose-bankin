@@ -3,16 +3,16 @@ import React, {
   PureComponent
 }                              from 'react'
 import PropTypes               from 'prop-types'
-import {DatePicker}            from 'material-ui-pickers'
+import { DatePicker }          from 'material-ui-pickers'
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider'
 import MomentUtils             from 'material-ui-pickers/utils/moment-utils'
 import moment                  from 'moment'
-import {withStyles}            from 'material-ui/styles'
+import { withStyles }          from 'material-ui/styles'
 import PermContactCalendar     from 'material-ui-icons/PermContactCalendar'
 import KeyboardArrowLeft       from 'material-ui-icons/KeyboardArrowLeft'
 import KeyboardArrowRight      from 'material-ui-icons/KeyboardArrowRight'
 
-const styles = theme => ({
+const styles = theme => ( {
   root     : {
     marginTop     : theme.spacing.unit * 2,
     display       : 'flex',
@@ -28,7 +28,7 @@ const styles = theme => ({
       color: theme.palette.secondary.light
     }
   }
-})
+} )
 
 export class InputDateTransaction extends PureComponent {
   state = {
@@ -39,8 +39,8 @@ export class InputDateTransaction extends PureComponent {
     const {onChange} = this.props
     const e = {target: {value: date}}
 
-    this.setState({selectedDate: date})
-    onChange('creationDate')(e)
+    this.setState( {selectedDate: date} )
+    onChange( 'creationDate' )( e )
 
   }
 
@@ -49,7 +49,7 @@ export class InputDateTransaction extends PureComponent {
     const {selectedDate} = this.state
     const LOCAL = 'en'
 
-    moment.locale(LOCAL)
+    moment.locale( LOCAL )
 
     return (
       <MuiPickersUtilsProvider utils={MomentUtils} moment={moment} locale={LOCAL}>
@@ -75,4 +75,4 @@ InputDateTransaction.propTypes = {
   isError : PropTypes.bool
 }
 
-export default withStyles(styles)(InputDateTransaction)
+export default withStyles( styles )( InputDateTransaction )

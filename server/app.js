@@ -10,48 +10,48 @@ import getRootUrl        from '../lib/api/getRootUrl'
 import auth              from './google'
 import api               from './api'
 
-require('dotenv').config()
+require( 'dotenv' ).config()
 
 const dev = process.env.NODE_ENV !== 'production'
 const MONGO_URL = process.env.MONGO_URL
 /*dev ? process.env.MONGO_URL_TEST:*/
 
-mongoose.connect(MONGO_URL, {dbName: 'react-bankin-bb'})
-mongoose.connection.on('connected', () => {
-  logger.info('🔗 Mongoose successfully connected to MongoDB')
-})
+mongoose.connect( MONGO_URL, {dbName: 'react-bankin-bb'} )
+mongoose.connection.on( 'connected', () => {
+  logger.info( '🔗 Mongoose successfully connected to MongoDB' )
+} )
 
 const port = process.env.PORT || 8000
 const ROOT_URL = getRootUrl()
 
-const app = next({dev, dir: '.'})
+const app = next( {dev, dir: '.'} )
 const handle = app.getRequestHandler()
 
 // Nextjs's server prepared
-app.prepare().then(() => {
+app.prepare().then( () => {
   const server = express()
 
   // give all Nextjs's request to Nextjs before anything else
-  server.get('/_next/*', (req, res) => {
-    handle(req, res)
-  })
+  server.get( '/_next/*', ( req, res ) => {
+    handle( req, res )
+  } )
 
-  server.get('/static/*', (req, res) => {
-    handle(req, res)
-  })
+  server.get( '/static/*', ( req, res ) => {
+    handle( req, res )
+  } )
 
-  server.use(compression())
-  server.use(bodyParser.json())
+  server.use( compression() )
+  server.use( bodyParser.json() )
 
   // confuring MongoDB session store
-  const MongoStore = mongoSessionStore(session)
+  const MongoStore = mongoSessionStore( session )
   const sess = {
     name             : 'bb.sid',
     secret           : 'HD2w.)q*VqRT4/#NK2M/,E^B)}FED5fWU!dKe[wk',
-    store            : new MongoStore({
+    store            : new MongoStore( {
       mongooseConnection: mongoose.connection,
       ttl               : 14 * 24 * 60 * 60 // save session 14 days
-    }),
+    } ),
     resave           : false,
     saveUninitialized: false,
     cookie           : {
@@ -60,16 +60,16 @@ app.prepare().then(() => {
     }
   }
 
-  server.use(session(sess))
+  server.use( session( sess ) )
 
-  auth({server, ROOT_URL})
-  api(server)
+  auth( {server, ROOT_URL} )
+  api( server )
 
-  server.get('*', (req, res) => handle(req, res))
+  server.get( '*', ( req, res ) => handle( req, res ) )
 
   // starting express server
-  server.listen(port, (err) => {
+  server.listen( port, ( err ) => {
     if (err) throw err
-    logger.info('✨  Magic happens on ' + ROOT_URL + ' [' + process.env.NODE_ENV + ']  ✨') // eslint-disable-line no-console
-  })
-})
+    logger.info( '✨  Magic happens on ' + ROOT_URL + ' [' + process.env.NODE_ENV + ']  ✨' ) // eslint-disable-line no-console
+  } )
+} )

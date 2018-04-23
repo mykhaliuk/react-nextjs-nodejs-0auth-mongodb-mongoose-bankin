@@ -1,6 +1,6 @@
 import React          from 'react'
 import PropTypes      from 'prop-types'
-import {withStyles}   from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import classNames     from 'classnames'
 import ExpansionPanel, {
   ExpansionPanelDetails,
@@ -14,12 +14,12 @@ import Grid           from 'material-ui/Grid'
 
 import CreateTransactionModal from './CreateTransactionModal'
 
-const styles = theme => ({
+const styles = theme => ( {
   root: {
     backgroundColor: theme.palette.background.paper
   },
   link: {
-    padding       : `0 0 ${theme.typography.pxToRem(20)} 0`,
+    padding       : `0 0 ${theme.typography.pxToRem( 20 )} 0`,
     textAlign     : 'center',
     color         : theme.palette.primary.main,
     textDecoration: 'none',
@@ -28,7 +28,7 @@ const styles = theme => ({
       cursor: 'pointer'
     }
   }
-})
+} )
 
 class CreateTransactionButton extends React.Component {
 
@@ -36,11 +36,11 @@ class CreateTransactionButton extends React.Component {
     isModalOpen: false
   }
 
-  handleModalToggle = () => (e) => {
+  handleModalToggle = () => ( e ) => {
     // e.preventDefault()
-    this.setState({
+    this.setState( {
       isModalOpen: !this.state.isModalOpen
-    })
+    } )
   }
 
   render() {
@@ -49,7 +49,7 @@ class CreateTransactionButton extends React.Component {
     return (
       <React.Fragment>
         <Grid item className={classes.root} xs={12}>
-          <Typography variant='button' className={classNames(classes.link)} onClick={this.handleModalToggle()}>Add new transaction</Typography>
+          <Typography variant='button' className={classNames( classes.link )} onClick={this.handleModalToggle()}>Add new transaction</Typography>
         </Grid>
         <CreateTransactionModal onClose={this.handleModalToggle} open={this.state.isModalOpen} user={user} addTransaction={addTransaction} />
       </React.Fragment>
@@ -61,4 +61,4 @@ CreateTransactionButton.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(CreateTransactionButton)
+export default withStyles( styles )( CreateTransactionButton )

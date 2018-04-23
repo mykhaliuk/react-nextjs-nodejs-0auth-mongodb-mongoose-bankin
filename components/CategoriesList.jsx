@@ -1,21 +1,21 @@
-import React        from 'react'
-import PropTypes    from 'prop-types'
-import {withStyles} from 'material-ui/styles'
+import React          from 'react'
+import PropTypes      from 'prop-types'
+import { withStyles } from 'material-ui/styles'
 import List, {
   ListItem,
   ListItemIcon,
   ListItemText
-}                   from 'material-ui/List'
-import Collapse     from 'material-ui/transitions/Collapse'
-import ExpandLess   from 'material-ui-icons/ExpandMore'
-import ExpandMore   from 'material-ui-icons/ChevronRight'
+}                     from 'material-ui/List'
+import Collapse       from 'material-ui/transitions/Collapse'
+import ExpandLess     from 'material-ui-icons/ExpandMore'
+import ExpandMore     from 'material-ui-icons/ChevronRight'
 
-import {is} from 'immutable'
+import { is } from 'immutable'
 
 import Spinner from './Spinner'
 import getIcon from '../lib/getIcon'
 
-const styles = theme => ({
+const styles = theme => ( {
   root       : {
     backgroundColor: theme.palette.background.paper
   },
@@ -23,7 +23,7 @@ const styles = theme => ({
     paddingLeft: theme.spacing.unit * 4
   },
   icon       : {
-    color : '#FFF',
+    color: '#FFF'
     // margin: '0 0 0 6px'
     // margin: theme.spacing.unit * .5
   },
@@ -32,7 +32,7 @@ const styles = theme => ({
     height      : '2rem',
     borderRadius: '50%'
   }
-})
+} )
 
 class CategoriesList extends React.Component {
   state = {
@@ -40,18 +40,18 @@ class CategoriesList extends React.Component {
     categoriesList: null
   }
 
-  handleClick = (id) => async () => {
-    await this.setState(({open}) => {
-      return open.includes(id)
-        ? {open: open.filter(itemId => itemId !== id)}
-        : {open: open.concat(id)}
-    })
+  handleClick = ( id ) => async () => {
+    await this.setState( ( {open} ) => {
+      return open.includes( id )
+        ? {open: open.filter( itemId => itemId !== id )}
+        : {open: open.concat( id )}
+    } )
   }
 
-  onSelect = (value) => () => {
+  onSelect = ( value ) => () => {
     const {onSelect, next} = this.props
 
-    onSelect('category')({target: {value}})
+    onSelect( 'category' )( {target: {value}} )
     next()
   }
 
@@ -62,20 +62,20 @@ class CategoriesList extends React.Component {
     const expenses = categories.Expenses
     const categoriesList = isCredit() ? incomes : expenses
 
-    await this.setState({
+    await this.setState( {
       categoriesList,
       expenses,
       incomes
-    })
+    } )
   }
 
-  componentDidUpdate(prevProps, {incomes, expenses, categoriesList}, snapshot) {
+  componentDidUpdate( prevProps, {incomes, expenses, categoriesList}, snapshot ) {
     const {isCredit} = this.props
     const categories = isCredit() ? incomes : expenses
 
-    !is(categoriesList, categories) && this.setState(() => ({
+    !is( categoriesList, categories ) && this.setState( () => ( {
       categoriesList: categories
-    }))
+    } ) )
 
     /*categoriesList && Object.keys(categoriesList).map((category) => {
       console.log('===========================================')
@@ -103,42 +103,42 @@ class CategoriesList extends React.Component {
     const {classes} = this.props
     const {open, categoriesList} = this.state
 
-    return (!categoriesList
+    return ( !categoriesList
         ? <Spinner />
         : <div className={classes.root}>
           <List component="nav">
-            {Object.keys(categoriesList).map(category => {
-              if (categoriesList[category] instanceof Object && categoriesList[category].group) {
+            {Object.keys( categoriesList ).map( category => {
+              if (categoriesList[ category ] instanceof Object && categoriesList[ category ].group) {
                 return (
-                  <React.Fragment key={categoriesList[category].name}>
-                    <ListItem button onClick={this.handleClick(categoriesList[category].name)}>
-                      <div className={classes.iconWrapper} style={{backgroundColor: `${categoriesList[category].color}`}}>
+                  <React.Fragment key={categoriesList[ category ].name}>
+                    <ListItem button onClick={this.handleClick( categoriesList[ category ].name )}>
+                      <div className={classes.iconWrapper} style={{backgroundColor: `${categoriesList[ category ].color}`}}>
                         <ListItemIcon className={classes.icon}>
-                          {getIcon(categoriesList[category])}
+                          {getIcon( categoriesList[ category ] )}
                         </ListItemIcon>
                       </div>
-                      <ListItemText inset primary={categoriesList[category].name} />
-                      {open.includes(categoriesList[category].name) ? <ExpandLess /> : <ExpandMore />}
+                      <ListItemText inset primary={categoriesList[ category ].name} />
+                      {open.includes( categoriesList[ category ].name ) ? <ExpandLess /> : <ExpandMore />}
                     </ListItem>
-                    <Collapse in={open.includes(categoriesList[category].name)} timeout="auto" unmountOnExit>
+                    <Collapse in={open.includes( categoriesList[ category ].name )} timeout="auto" unmountOnExit>
                       <List component="div" disablePadding>
-                        {Object.keys(categoriesList[category]).map((sub) => {
-                            if (['name', 'icon', 'color', 'group'].includes(sub)) {
+                        {Object.keys( categoriesList[ category ] ).map( ( sub ) => {
+                            if ([ 'name', 'icon', 'color', 'group' ].includes( sub )) {
                               return null
                             }
                             return (
                               <ListItem
-                                key={categoriesList[category][sub].name}
+                                key={categoriesList[ category ][ sub ].name}
                                 button
                                 className={classes.nested}
-                                onClick={this.onSelect(categoriesList[category][sub])}>
-                                <div className={classes.iconWrapper} style={{backgroundColor: `${categoriesList[category][sub].color}`}}
+                                onClick={this.onSelect( categoriesList[ category ][ sub ] )}>
+                                <div className={classes.iconWrapper} style={{backgroundColor: `${categoriesList[ category ][ sub ].color}`}}
                                 >
                                   <ListItemIcon className={classes.icon}>
-                                    {getIcon(categoriesList[category][sub])}
+                                    {getIcon( categoriesList[ category ][ sub ] )}
                                   </ListItemIcon>
                                 </div>
-                                <ListItemText inset primary={categoriesList[category][sub].name} />
+                                <ListItemText inset primary={categoriesList[ category ][ sub ].name} />
                               </ListItem>
                             )
                           }
@@ -148,24 +148,24 @@ class CategoriesList extends React.Component {
                   </React.Fragment>
                 )
               } else {
-                if (categoriesList[category] instanceof Object) {
+                if (categoriesList[ category ] instanceof Object) {
                   return (
                     <ListItem
                       button
-                      key={categoriesList[category].name}
-                      onClick={this.onSelect(categoriesList[category])}
+                      key={categoriesList[ category ].name}
+                      onClick={this.onSelect( categoriesList[ category ] )}
                     >
-                      <div className={classes.iconWrapper} style={{backgroundColor: `${categoriesList[category].color}`}}>
+                      <div className={classes.iconWrapper} style={{backgroundColor: `${categoriesList[ category ].color}`}}>
                         <ListItemIcon className={classes.icon}>
-                          {getIcon(categoriesList[category])}
+                          {getIcon( categoriesList[ category ] )}
                         </ListItemIcon>
                       </div>
-                      <ListItemText inset primary={categoriesList[category].name} />
+                      <ListItemText inset primary={categoriesList[ category ].name} />
                     </ListItem>
                   )
                 }
               }
-            })}
+            } )}
           </List>
         </div>
     )
@@ -180,4 +180,4 @@ CategoriesList.propTypes = {
   next      : PropTypes.func.isRequired
 }
 
-export default withStyles(styles)(CategoriesList)
+export default withStyles( styles )( CategoriesList )

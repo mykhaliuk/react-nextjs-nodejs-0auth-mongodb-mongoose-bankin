@@ -8,7 +8,7 @@ import IconButton from 'material-ui/IconButton'
 import MenuIcon   from 'material-ui-icons/Menu'
 import ExitToApp  from 'material-ui-icons/ExitToApp'
 
-import {withStyles} from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 
 import MenuDrop from './MenuDrop'
 
@@ -20,7 +20,7 @@ Router.onRouteChangeStart = () => {
 Router.onRouteChangeComplete = () => NProgress.done()
 Router.onRouteChangeError = () => NProgress.done()
 
-const styles = theme => ({
+const styles = theme => ( {
   root      : {
     flexGrow  : 1,
     fontFamily: theme.typography.fontFamily
@@ -35,7 +35,7 @@ const styles = theme => ({
   icon      : {
     margin: theme.spacing.unit
   }
-})
+} )
 
 const optionsMenu = [
   {
@@ -50,7 +50,7 @@ const optionsMenu = [
 
 const noUserAvatar = '/static/ic_account_circle_black_24px.svg'
 
-function Header({user, classes}) {
+function Header( {user, classes} ) {
   return (
     <div className={classes.root}>
       <AppBar position='static' color={'inherit'}>
@@ -61,7 +61,7 @@ function Header({user, classes}) {
           <div className={classes.flex}></div>
           {user
             ? <MenuDrop options={optionsMenu} src={user.avatarUrl ? user.avatarUrl : noUserAvatar} alt="User menu" />
-            : (<Button className={classes.button} href="/login" color="secondary">
+            : ( <Button className={classes.button} href="/login" color="secondary">
                 <ExitToApp />
                 Sign In / Up
               </Button>
@@ -74,14 +74,14 @@ function Header({user, classes}) {
 }
 
 Header.propTypes = {
-  user: PropTypes.shape({
+  user: PropTypes.shape( {
     avatarUrl: PropTypes.string,
     email    : PropTypes.string.isRequired
-  })
+  } )
 }
 
 Header.defaultProps = {
   user: null
 }
 
-export default withStyles(styles)(Header)
+export default withStyles( styles )( Header )

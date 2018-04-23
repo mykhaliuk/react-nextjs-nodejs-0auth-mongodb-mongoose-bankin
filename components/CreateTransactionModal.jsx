@@ -1,11 +1,11 @@
 import React             from 'react'
 import PropTypes         from 'prop-types'
-import {withStyles}      from 'material-ui/styles'
+import { withStyles }    from 'material-ui/styles'
 import Modal             from 'material-ui/Modal'
 import classNames        from 'classnames'
 import DotsMobileStepper from './DotsMobileStepper'
 
-const styles = theme => ({
+const styles = theme => ( {
   root : {
     flexGrow: 1,
     padding : theme.spacing.unit * 2,
@@ -19,10 +19,10 @@ const styles = theme => ({
     position       : 'absolute',
     // width          : theme.spacing.unit * 45,
     backgroundColor: theme.palette.background.paper,
-    boxShadow      : theme.shadows[5]
+    boxShadow      : theme.shadows[ 5 ]
     // padding        : theme.spacing.unit * 4
   }
-})
+} )
 
 class CreateTransactionModal extends React.Component {
 
@@ -36,8 +36,8 @@ class CreateTransactionModal extends React.Component {
         open={open}
         onClose={onClose()}
       >
-        <div className={classNames(classes.paper, classes.root)}>
-          <DotsMobileStepper closeModal={onClose} user={user} addTransaction={addTransaction}/>
+        <div className={classNames( classes.paper, classes.root )}>
+          <DotsMobileStepper closeModal={onClose} user={user} addTransaction={addTransaction} />
         </div>
       </Modal>
     )
@@ -50,4 +50,4 @@ CreateTransactionModal.propTypes = {
   onClose: PropTypes.func.isRequired
 }
 
-export default withStyles(styles)(CreateTransactionModal)
+export default withStyles( styles )( CreateTransactionModal )

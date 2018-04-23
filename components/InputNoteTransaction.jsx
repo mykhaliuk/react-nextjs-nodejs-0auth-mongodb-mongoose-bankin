@@ -1,15 +1,15 @@
-import React        from 'react'
-import PropTypes    from 'prop-types'
-import {withStyles} from 'material-ui/styles'
-import TextField    from 'material-ui/TextField'
+import React          from 'react'
+import PropTypes      from 'prop-types'
+import { withStyles } from 'material-ui/styles'
+import TextField      from 'material-ui/TextField'
 import {
   FormGroup,
   FormControlLabel
-}                   from 'material-ui/Form'
-import Switch       from 'material-ui/Switch'
-import notify       from '../lib/notifier'
+}                     from 'material-ui/Form'
+import Switch         from 'material-ui/Switch'
+import notify         from '../lib/notifier'
 
-const styles = theme => ({
+const styles = theme => ( {
   container     : {
     display   : 'flex',
     flexWrap  : 'wrap',
@@ -22,19 +22,18 @@ const styles = theme => ({
     fontSize       : 16,
     padding        : '10px 12px',
     // width: 'calc(100% - 24px)',
-    transition     : theme.transitions.create(['border-color']),
+    transition     : theme.transitions.create( [ 'border-color' ] ),
     '&:focus'      : {
       borderColor: theme.palette.primary.main
     }
   }
-})
+} )
 
 class InputNoteTransaction extends React.Component {
   handleSwitch = e => {
     const {onSwitch, isHidden} = this.props
-    onSwitch('hidden')({target: {value: !isHidden}})
+    onSwitch( 'hidden' )( {target: {value: !isHidden}} )
   }
-
 
   render() {
     const {classes, isHidden, onChange, value} = this.props
@@ -79,4 +78,4 @@ InputNoteTransaction.propTypes = {
   isHidden: PropTypes.bool.isRequired
 }
 
-export default withStyles(styles)(InputNoteTransaction)
+export default withStyles( styles )( InputNoteTransaction )

@@ -27,24 +27,24 @@ class MyDocument extends Document {
       <body>
       <style>
       </style>
-        <Main />
-        <NextScript />
+      <Main />
+      <NextScript />
       </body>
       </html>
     )
   }
 }
 
-MyDocument.getInitialProps = ({renderPage}) => {
+MyDocument.getInitialProps = ( {renderPage} ) => {
   const pageContext = getContext()
-  const page = renderPage(Component => props => (
+  const page = renderPage( Component => props => (
     <JssProvider
       registry={pageContext.sheetsRegistry}
       generateClassName={pageContext.generateClassName}
     >
       <Component pageContext={pageContext} {...props} />
     </JssProvider>
-  ))
+  ) )
 
   return {
     ...page,

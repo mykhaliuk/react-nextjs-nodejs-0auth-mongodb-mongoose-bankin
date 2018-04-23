@@ -1,20 +1,20 @@
-import React        from 'react'
-import Snackbar     from 'material-ui/Snackbar'
-import IconButton   from 'material-ui/IconButton'
-import CloseIcon    from 'material-ui-icons/Close'
-import {withStyles} from 'material-ui/styles'
+import React          from 'react'
+import Snackbar       from 'material-ui/Snackbar'
+import IconButton     from 'material-ui/IconButton'
+import CloseIcon      from 'material-ui-icons/Close'
+import { withStyles } from 'material-ui/styles'
 
 let openSnackbarFn
 
-const styles = theme => ({
+const styles = theme => ( {
   root   : {
     backgroundColor: theme.palette.background.paper
   },
   caption: {
     textTransform: 'uppercase',
-    paddingBottom: theme.typography.pxToRem(20) + `!important`
+    paddingBottom: theme.typography.pxToRem( 20 ) + `!important`
   }
-})
+} )
 
 class Notifier extends React.Component {
   state = {
@@ -23,25 +23,24 @@ class Notifier extends React.Component {
   }
 
   handleSnackbarClose = () => {
-    this.setState({
+    this.setState( {
       open   : false,
       message: ''
-    })
+    } )
   }
 
-  openSnackbar = ({message}) => {
-    this.setState({open: true, message})
+  openSnackbar = ( {message} ) => {
+    this.setState( {open: true, message} )
+  }
+  handleCloseSnackbar = () => ( event, reason ) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    this.setState( {open: false} )
   }
 
   componentDidMount() {
     openSnackbarFn = this.openSnackbar
-  }
-
-  handleCloseSnackbar = () => (event, reason) => {
-    if (reason === 'clickaway') {
-      return
-    }
-    this.setState({open: false})
   }
 
   render() {
@@ -65,8 +64,8 @@ class Notifier extends React.Component {
   }
 }
 
-export function openSnackbar({message}) {
-  openSnackbarFn({message})
+export function openSnackbar( {message} ) {
+  openSnackbarFn( {message} )
 }
 
-export default withStyles(styles)(Notifier)
+export default withStyles( styles )( Notifier )

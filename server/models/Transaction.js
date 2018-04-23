@@ -1,8 +1,8 @@
-import mongoose, {Schema} from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 
 const ObjectId = mongoose.Schema.Types.ObjectId
 const ObjectID = mongoose.Types.ObjectId
-const TransactionSchema = new mongoose.Schema({
+const TransactionSchema = new mongoose.Schema( {
   name        : {
     type    : String,
     required: true
@@ -40,28 +40,28 @@ const TransactionSchema = new mongoose.Schema({
     type   : Boolean,
     default: false
   }
-})
+} )
 
 class TransactionClass {
-  static async list({offset = 0, limit = 10} = {}) {
-    const transactions = await this.find({})
-      .sort({creationDate: -1})
-      .skip(offset)
-      .limit(limit)
+  static async list( {offset = 0, limit = 10} = {} ) {
+    const transactions = await this.find( {} )
+      .sort( {creationDate: -1} )
+      .skip( offset )
+      .limit( limit )
     return {transactions}
   }
 
-  static async allTransactionsByAccountId(accountId) {
-    return await this.find({account: ObjectID(accountId)}).exec()
+  static async allTransactionsByAccountId( accountId ) {
+    return await this.find( {account: ObjectID( accountId )} ).exec()
   }
 
-  static async allTransactionsByUserId(userId) {
-    return await this.find({owner: ObjectID(userId)}).sort('-creationDate').exec()
+  static async allTransactionsByUserId( userId ) {
+    return await this.find( {owner: ObjectID( userId )} ).sort( '-creationDate' ).exec()
   }
 
-  static async add({name, note, owner, account, amount, currency, category, creationDate, isHidden, icon}) {
+  static async add( {name, note, owner, account, amount, currency, category, creationDate, isHidden, icon} ) {
 
-    const newTransaction = await this.create({
+    const newTransaction = await this.create( {
       name,
       note,
       owner,
@@ -69,13 +69,13 @@ class TransactionClass {
       currency,
       category,
       creationDate,
-      isHidden,
-    })
+      isHidden
+    } )
 
     return newTransaction
   }
 }
 
-TransactionSchema.loadClass(TransactionClass)
+TransactionSchema.loadClass( TransactionClass )
 
-export default mongoose.model('Transaction', TransactionSchema)
+export default mongoose.model( 'Transaction', TransactionSchema )

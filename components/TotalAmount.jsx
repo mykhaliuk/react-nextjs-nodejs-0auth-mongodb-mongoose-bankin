@@ -1,29 +1,29 @@
-import React              from 'react'
-import Grid               from 'material-ui/Grid'
-import Typography         from 'material-ui/Typography'
-import {withStyles}       from 'material-ui/styles'
+import React          from 'react'
+import Grid           from 'material-ui/Grid'
+import Typography     from 'material-ui/Typography'
+import { withStyles } from 'material-ui/styles'
 
 import formatMoney from '../lib/formatMoney'
 import Spinner     from './Spinner'
 
-const styles = theme => ({
+const styles = theme => ( {
   root   : {
     backgroundColor: theme.palette.background.paper,
     padding        : 0
   },
   caption: {
-    fontWeight: 100,
+    fontWeight   : 100,
     textTransform: 'uppercase',
-    paddingBottom: theme.typography.pxToRem(20) + `!important`
+    paddingBottom: theme.typography.pxToRem( 20 ) + `!important`
   }
-})
+} )
 
-const TotalAmount = ({transactions, classes}) => {
+const TotalAmount = ( {transactions, classes} ) => {
   let sum = 0
 
-  transactions && transactions.forEach(transaction => {
+  transactions && transactions.forEach( transaction => {
     sum += transaction.amount
-  })
+  } )
 
   return (
     <Grid item className={classes.root} xs={12}>
@@ -37,4 +37,4 @@ const TotalAmount = ({transactions, classes}) => {
   )
 }
 
-export default withStyles(styles)(TotalAmount)
+export default withStyles( styles )( TotalAmount )

@@ -2,7 +2,7 @@ import React     from 'react'
 import PropTypes from 'prop-types'
 import Loader    from 'react-loaders'
 
-export default function Spinner({scale, active}) {
+export default function Spinner( {scale, active} ) {
 
   return <Loader type="line-scale-pulse-out-rapid"
                  style={{transform: `scale(${scale})`}}
