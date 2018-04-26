@@ -5,9 +5,9 @@ import { faCheckSquare }    from '@fortawesome/free-solid-svg-icons/index'
 
 const defaultCategories = {
   Incomes : {
-    Salaries       : {name: "Salaries", icon: "sign-in-alt", color: "#00cc8b"},
-    Savings        : {name: "Savings", icon: "sign-in-alt", color: "#00cc8b"},
-    'Extra incomes': {name: "Extra incomes", icon: "sign-in-alt", color: "#00cc8b"},
+    Salaries       : {name: "Salaries", icon: "sign-in-alt", color: "#4CAF50"},
+    Savings        : {name: "Savings", icon: "sign-in-alt", color: "#4CAF50"},
+    'Extra incomes': {name: "Extra incomes", icon: "sign-in-alt", color: "#4CAF50"},
     group          : true
   },
   Expenses: {
@@ -22,7 +22,7 @@ const defaultCategories = {
       color                    : "#ffb200"
     },
     'Auto & Transport'              : {
-      'Auto & Transport - others': {name: "Auto & Transport - Others", icon: "taxi", color: "#00cbcb"},
+      'Auto & Transport - others': {name: "Auto & Transport - Others", icon: "car", color: "#00cbcb"},
       'Auto insurance'           : {name: "Auto insurance", icon: "shield-alt", color: "#00cbcb"},
       'Car maintenance'          : {name: "Car maintenance", icon: "wrench", color: "#00cbcb"},
       'Car washing'              : {name: "Car washing", icon: "warehouse", color: "#00cbcb"},
@@ -96,42 +96,57 @@ const defaultCategories = {
       color              : "#19C95D"
     },
     'Misc expenses'                 : {
-      'Insurance'             : {name: "Insurance", icon: "users", color: "#9FC3D3"},
-      'Laundry / Dry cleaning': {name: "Laundry / Dry cleaning", icon: "diagnoses", color: "#9FC3D3"},
-      'Others spending'       : {name: "Others spending", icon: "birthday-cake", color: "#9FC3D3"},
-      'Uncategorized'         : {name: "Uncategorized", icon: "barcode", color: "#9FC3D3"},
+      'Insurance'             : {name: "Insurance", icon: "users", color: "#81D4FA"},
+      'Laundry / Dry cleaning': {name: "Laundry / Dry cleaning", icon: "diagnoses", color: "#81D4FA"},
+      'Others spending'       : {name: "Others spending", icon: "birthday-cake", color: "#81D4FA"},
+      'Uncategorized'         : {name: "Uncategorized", icon: "barcode", color: "#81D4FA"},
       name                    : "Misc. expenses",
       group                   : true,
       icon                    : "magic",
-      color                   : "#9FC3D3"
+      color                   : "#81D4FA"
     },
     'Entertainment'                 : {
-      'Amusements'            : {name: "Amusements", icon: "gamepad", color: "#9b59b6"},
-      'Arts & Amusement'      : {name: "Arts & Amusement", icon: "camera-retro", color: "#9b59b6"},
-      'Bars & Clubs'          : {name: "Bars & Clubs", icon: "beer", color: "#9b59b6"},
-      'Eating out'            : {name: "Eating out", icon: "wine-glass", color: "#9b59b6"},
-      'Entertainment - Others': {name: "Entertainment - Others", icon: "at", color: "#9b59b6"},
-      'Hobbies'               : {name: "Hobbies", icon: "golf-ball", color: "#9b59b6"},
-      'Hotels'                : {name: "Hotels", icon: "bed", color: "#9b59b6"},
-      'Pets'                  : {name: "Pets", icon: "paw", color: "#9b59b6"},
-      'Sports'                : {name: "Sports", icon: "volleyball-ball", color: "#9b59b6"},
-      'Travels / Vacation'    : {name: "Travels / Vacation", icon: "suitcase", color: "#9b59b6"},
-      'Winter sports'         : {name: "Winter sports", icon: "snowflake", color: "#9b59b6"},
+      'Amusements'            : {name: "Amusements", icon: "gamepad", color: "#4A148C"},
+      'Arts & Amusement'      : {name: "Arts & Amusement", icon: "camera-retro", color: "#4A148C"},
+      'Bars & Clubs'          : {name: "Bars & Clubs", icon: "beer", color: "#4A148C"},
+      'Eating out'            : {name: "Eating out", icon: "wine-glass", color: "#4A148C"},
+      'Entertainment - Others': {name: "Entertainment - Others", icon: "at", color: "#4A148C"},
+      'Hobbies'               : {name: "Hobbies", icon: "golf-ball", color: "#4A148C"},
+      'Hotels'                : {name: "Hotels", icon: "bed", color: "#4A148C"},
+      'Pets'                  : {name: "Pets", icon: "paw", color: "#4A148C"},
+      'Sports'                : {name: "Sports", icon: "volleyball-ball", color: "#4A148C"},
+      'Travels / Vacation'    : {name: "Travels / Vacation", icon: "suitcase", color: "#4A148C"},
+      'Winter sports'         : {name: "Winter sports", icon: "snowflake", color: "#4A148C"},
       name                    : "Entertainment",
       group                   : true,
       icon                    : "rocket",
-      color                   : "#9b59b6"
+      color                   : "#4A148C"
     },
     'Personal care'                 : {
-      'Beauty care'           : {name: "Beauty care", icon: "eye", color: "#ff87c2"},
-      'Cosmetics'             : {name: "Cosmetics", icon: "paint-brush", color: "#ff87c2"},
-      'Hairdresser'           : {name: "Hairdresser", icon: "cut", color: "#ff87c2"},
-      'Spa & Massage'         : {name: "Spa & Massage", icon: "diagnoses", color: "#ff87c2"},
-      'Personal care - others': {name: "Personal care - others", icon: "heart", color: "#ff87c2"},
+      'Beauty care'           : {name: "Beauty care", icon: "eye", color: "#F06292"},
+      'Cosmetics'             : {name: "Cosmetics", icon: "paint-brush", color: "#F06292"},
+      'Hairdresser'           : {name: "Hairdresser", icon: "cut", color: "#F06292"},
+      'Spa & Massage'         : {name: "Spa & Massage", icon: "diagnoses", color: "#F06292"},
+      'Personal care - others': {name: "Personal care - others", icon: "heart", color: "#F06292"},
       name                    : "Personal care",
       group                   : true,
       icon                    : "leaf",
-      color                   : "#ff87c2"
+      color                   : "#F06292"
+    },
+    'Shopping'                      : {
+      'Books'             : {name: "Books", icon: "book", color: "#D50000"},
+      'Clothing & Shoes'  : {name: "Clothing & Shoes", icon: "user-secret", color: "#D50000"},
+      'Gifts'             : {name: "Gifts", icon: "gift", color: "#D50000"},
+      'Hardware'          : {name: "Hardware", icon: "laptop", color: "#D50000"},
+      'Licences'          : {name: "Licences", icon: "qrcode", color: "#D50000"},
+      'Movies'            : {name: "Movies", icon: "film", color: "#D50000"},
+      'Music'             : {name: "Music", icon: "music", color: "#D50000"},
+      'Shopping - Others' : {name: "Shopping - Others", icon: "boxes", color: "#D50000"},
+      'Sporting goods'    : {name: "Sporting goods", icon: "football-ball", color: "#D50000"},
+      name                : "Shopping",
+      group               : true,
+      icon                : "shopping-cart",
+      color               : "#D50000"
     }
   }
 }
