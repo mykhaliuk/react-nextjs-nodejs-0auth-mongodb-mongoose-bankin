@@ -43,8 +43,8 @@ const styles = theme => ( {
     flexBasis: '50%'
   },
   date            : {
-    textAlign: 'right !important',
-    padding  : `${theme.spacing.unit}px  ${theme.spacing.unit * 4}px 0 0 `
+    textAlign    : 'right !important',
+    padding      : `${theme.spacing.unit}px  ${theme.spacing.unit * 4}px 0 0 `
   },
   account         : {
     textAlign: 'left !important',
@@ -68,6 +68,8 @@ const styles = theme => ( {
     paddingLeft: 0
   },
   listGroupHeading: {
+    textTransform: 'uppercase',
+    padding: theme.spacing.unit * .6,
     backgroundColor: theme.palette.primary.listGroupHeading
   },
   ul              : {
@@ -86,7 +88,7 @@ class TransactionsList extends React.Component {
     const today = moment( new Date() ).endOf( 'day' )
     const yesterday = moment( new Date() ).add( -1, 'days' ).endOf( 'day' )
 
-    if (moment( date ).add( 1, 'days' ).endOf( 'day' ) <= yesterday) return moment( date ).format( 'Do MMM YYYY' )
+    if (moment( date ).add( 1, 'days' ).endOf( 'day' ) <= yesterday) return moment( date ).format( 'dddd Do MMM YYYY' )
     if (moment( date ).endOf( 'day' ) <= yesterday) return 'Yesterday'
     if (moment( date ).endOf( 'day' ) <= today) return 'Today'
     return moment( date ).format( 'Do MMM YYYY' )
