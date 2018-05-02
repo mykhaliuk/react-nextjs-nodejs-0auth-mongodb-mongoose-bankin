@@ -18,11 +18,8 @@ class InputNameTransaction extends React.Component {
             type='text'
             error={!isError}
             autoFocus
-            placeholder="Name of transaction"
+            placeholder="Title of transaction"
             fullWidth
-            inputProps={{
-              'aria-label': 'Description'
-            }}
             onChange={onChange( 'name' )}
             onBlur={next}
           />
