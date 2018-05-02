@@ -33,9 +33,9 @@ class Index extends React.Component {
     // Initialize font library
     InitFontAwesome()
 
-    //  Add FastClick globally to document
-    const FastClick = require( 'fastclick' )
-    FastClick.attach( document.body, false )
+    //  Add FastClick globally to document doesn't work well with a material-ui tabs
+    /*const FastClick = require( 'fastclick' )
+    FastClick.attach( document.body, false )*/
   }
 
   render() {
