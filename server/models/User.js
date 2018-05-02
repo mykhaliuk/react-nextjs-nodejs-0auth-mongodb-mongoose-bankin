@@ -24,7 +24,7 @@ const defaultCategories = {
     'Auto & Transport'              : {
       'Auto & Transport - others': {name: "Auto & Transport - Others", icon: "car", color: "#00cbcb"},
       'Auto insurance'           : {name: "Auto insurance", icon: "shield-alt", color: "#00cbcb"},
-      'Car maintenance'          : {name: "Car maintenance", icon: "wrench", color: "#00cbcb"},
+      'Car maintenance'          : {name: "Car maintenance", icon: "cogs", color: "#00cbcb"},
       'Car washing'              : {name: "Car washing", icon: "warehouse", color: "#00cbcb"},
       'Gas & Fuel'               : {name: "Gas & Fuel", icon: "fire", color: "#00cbcb"},
       'Parking'                  : {name: "Parking", icon: "flag-checkered", color: "#00cbcb"},
@@ -134,19 +134,33 @@ const defaultCategories = {
       color                   : "#F06292"
     },
     'Shopping'                      : {
-      'Books'             : {name: "Books", icon: "book", color: "#D50000"},
-      'Clothing & Shoes'  : {name: "Clothing & Shoes", icon: "user-secret", color: "#D50000"},
-      'Gifts'             : {name: "Gifts", icon: "gift", color: "#D50000"},
-      'Hardware'          : {name: "Hardware", icon: "laptop", color: "#D50000"},
-      'Licences'          : {name: "Licences", icon: "qrcode", color: "#D50000"},
-      'Movies'            : {name: "Movies", icon: "film", color: "#D50000"},
-      'Music'             : {name: "Music", icon: "music", color: "#D50000"},
-      'Shopping - Others' : {name: "Shopping - Others", icon: "boxes", color: "#D50000"},
-      'Sporting goods'    : {name: "Sporting goods", icon: "football-ball", color: "#D50000"},
-      name                : "Shopping",
+      'Books'            : {name: "Books", icon: "book", color: "#D50000"},
+      'Clothing & Shoes' : {name: "Clothing & Shoes", icon: "user-secret", color: "#D50000"},
+      'Gifts'            : {name: "Gifts", icon: "gift", color: "#D50000"},
+      'Hardware'         : {name: "Hardware", icon: "laptop", color: "#D50000"},
+      'Licences'         : {name: "Licences", icon: "qrcode", color: "#D50000"},
+      'Movies'           : {name: "Movies", icon: "film", color: "#D50000"},
+      'Music'            : {name: "Music", icon: "music", color: "#D50000"},
+      'Shopping - Others': {name: "Shopping - Others", icon: "boxes", color: "#D50000"},
+      'Sporting goods'   : {name: "Sporting goods", icon: "football-ball", color: "#D50000"},
+      name               : "Shopping",
+      group              : true,
+      icon               : "shopping-cart",
+      color              : "#D50000"
+    },
+    'Home'                          : {
+      'Electricity'       : {name: "Electricity", icon: "lightbulb", color: "#677fe0"},
+      'Gas'               : {name: "Gas", icon: "burn", color: "#677fe0"},
+      'Home insurance'    : {name: "Home insurance", icon: "umbrella", color: "#677fe0"},
+      'Maintenance'       : {name: "Maintenance", icon: "wrench", color: "#677fe0"},
+      'Misc utilities'    : {name: "Misc utilities", icon: "home", color: "#677fe0"},
+      'Rent'              : {name: "Rent", icon: "home", color: "#677fe0"},
+      'Water'             : {name: "Water", icon: "tint", color: "#677fe0"},
+      'Office improvement': {name: "Office improvement", icon: "couch", color: "#677fe0"},
+      name                : "Home",
       group               : true,
-      icon                : "shopping-cart",
-      color               : "#D50000"
+      icon                : "home",
+      color               : "#677fe0"
     }
   }
 }
@@ -254,8 +268,8 @@ UserSchema.loadClass( UserClass )
 const User = mongoose.model( 'User', UserSchema )
 
 /*//  uncomment to update categories
-User.findOneAndUpdate({_id: mongoose.Types.ObjectId('5ab8023c7aed5e03a286020c')}, {categories: defaultCategories}, {new: true})
-  .then(ctx => {console.log(ctx)})
-  .catch(err => {console.log(err)})*/
+ User.findOneAndUpdate({_id: mongoose.Types.ObjectId('5ab8023c7aed5e03a286020c')}, {categories: defaultCategories}, {new: true})
+ .then(ctx => {console.log(ctx)})
+ .catch(err => {console.log(err)})*/
 
 export default User

@@ -88,7 +88,7 @@ class TransactionsList extends React.Component {
     const today = moment( new Date() ).endOf( 'day' )
     const yesterday = moment( new Date() ).add( -1, 'days' ).endOf( 'day' )
 
-    if (moment( date ).add( 1, 'days' ).endOf( 'day' ) <= yesterday) return moment( date ).format( 'dddd Do MMM YYYY' )
+    if (moment( date ).add( 1, 'days' ).endOf( 'day' ) <= yesterday) return moment( date ).format( 'dddd, Do MMM YYYY' )
     if (moment( date ).endOf( 'day' ) <= yesterday) return 'Yesterday'
     if (moment( date ).endOf( 'day' ) <= today) return 'Today'
     return moment( date ).format( 'Do MMM YYYY' )
